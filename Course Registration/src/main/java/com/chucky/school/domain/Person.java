@@ -35,7 +35,7 @@ public abstract class Person {
   private String emailAddress;
   private LocalDate dateOfBirth;
   @Embedded
-  private CreatedRecord createdRecord;
+  private AuditData createdRecord;
   @Column(table = "PersonAccount")
   private String username;
   @Column(table = "PersonAccount")

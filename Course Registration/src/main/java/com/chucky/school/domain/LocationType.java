@@ -19,5 +19,5 @@ public class LocationType {
   @GeneratedValue
   private long locationTypeId;
   @Embedded
-  private CreatedRecord createdRecord;
+  private AuditData createdRecord;
 }

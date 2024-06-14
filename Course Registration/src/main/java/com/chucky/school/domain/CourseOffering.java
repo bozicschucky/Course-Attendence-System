@@ -24,7 +24,7 @@ public class CourseOffering {
   private String courseOfferingType;
   private String room;
   @Embedded
-  private CreatedRecord createdRecord;
+  private AuditData createdRecord;
 
   @ManyToOne
   private Course course;

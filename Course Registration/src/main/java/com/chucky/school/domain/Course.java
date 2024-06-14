@@ -30,7 +30,7 @@ public class Course {
   private String courseDescription;
   private String department;
   @Embedded
-  private CreatedRecord createdRecord;
+  private AuditData createdRecord;
 
   @ManyToMany
   @JoinTable(name = "course_reqs", joinColumns = @JoinColumn(name = "courseId"), inverseJoinColumns = @JoinColumn(name = "prerequisiteId"))
