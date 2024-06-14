@@ -19,7 +19,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Faculty extends Person {
+public class Faculty extends Staff {
   @Column(name = "faculty_id")
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Id
