@@ -1,6 +1,8 @@
 package com.chucky.school.domain;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -23,7 +25,7 @@ import lombok.Setter;
 public class Course {
   @Id
   @GeneratedValue
-  private long courseId;
+  private long id;
   private long credits;
   private String courseName;
   private String courseCode;
@@ -33,8 +35,16 @@ public class Course {
   private CreatedRecord createdRecord;
 
   @ManyToMany
-  @JoinTable(name = "course_reqs", joinColumns = @JoinColumn(name = "courseId"), inverseJoinColumns = @JoinColumn(name = "prerequisiteId"))
-  private List<CoursePrerequisite> prerequisites;
+  @JoinTable(
+          name = "course_prerequisite",
+          joinColumns = @JoinColumn(name = "course_id"),
+          inverseJoinColumns = @JoinColumn(name = "prerequisite_id")
+  )
+  private Set<Course> prerequisites = new HashSet<>();
+
+  @ManyToMany(mappedBy = "prerequisites")
+  private Set<Course> courses = new HashSet<>();
+
 
   @OneToMany(mappedBy = "course")
   private List<CourseOffering> courseOfferings;

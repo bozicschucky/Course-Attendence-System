@@ -23,17 +23,16 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Student extends Person {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Column(name = "student_id")
-  private long id;
+  //@Id
+  //@GeneratedValue(strategy = GenerationType.AUTO)
+  //@Column(name = "student_id")
+  //private long id;
   private long studentId;
   private String Entry;
   private long alternateId;
   private long applicantId;
   @ManyToOne(cascade = CascadeType.ALL)
-  @JoinTable(name ="student_faculty_advisor", joinColumns = @JoinColumn(name = "student_id"), inverseJoinColumns = @JoinColumn(name = "faculty_id"))
+  @JoinColumn(name="facultyAdvisorId")
   private Faculty facultyAdvisorId;
-  @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
-  private List<AttendanceRecord> attendanceRecord;
+
 }

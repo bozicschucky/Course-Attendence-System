@@ -14,14 +14,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @Embeddable
 public class FacultyHobby {
-  private long faculty_id;
   private List<String> hobbies;
-
   FacultyHobby() {
     hobbies = new ArrayList<>();
   }
-
-
   public void addHobby(String hobby) {
     hobbies.add(hobby);
   }

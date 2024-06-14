@@ -17,8 +17,7 @@ import lombok.Setter;
 public class CourseRegistration {
   @Id
   @GeneratedValue
-  private long courseRegistrationId;
-
+  private long id;
   private long courseOfferingId;
   @OrderBy("studentId ASC")
   private long studentId;

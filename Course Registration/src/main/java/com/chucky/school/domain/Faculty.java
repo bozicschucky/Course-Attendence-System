@@ -20,10 +20,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Faculty extends Person {
-  @Column(name = "faculty_id")
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  @Id
-  private long id;
   private String Salutation;
   @ElementCollection
   private List<FacultyHobby> hobbies;

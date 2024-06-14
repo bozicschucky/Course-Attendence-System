@@ -17,7 +17,8 @@ import lombok.Setter;
 public class LocationType {
   @Id
   @GeneratedValue
-  private long locationTypeId;
+  private long id;
+  private String type;
   @Embedded
   private CreatedRecord createdRecord;
 }

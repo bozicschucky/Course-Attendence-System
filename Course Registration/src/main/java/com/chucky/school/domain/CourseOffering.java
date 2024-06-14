@@ -18,17 +18,14 @@ import lombok.Setter;
 public class CourseOffering {
   @Id
   @GeneratedValue
-  private long courseOfferingId;
-  private long courseId;
+  private long id;
   private long capacity;
   private String courseOfferingType;
   private String room;
   @Embedded
   private CreatedRecord createdRecord;
-
   @ManyToOne
   private Course course;
-
   @ManyToOne
   private Faculty faculty;
 

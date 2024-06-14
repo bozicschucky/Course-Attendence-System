@@ -22,10 +22,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@SecondaryTable(name = "PersonAccount", pkJoinColumns = @PrimaryKeyJoinColumn(name = "person_id"))
+@SecondaryTable(name = "PersonAccount", pkJoinColumns = @PrimaryKeyJoinColumn(name = "id"))
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Person {
-  @Column(name = "person_id")
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Id
   private long id;

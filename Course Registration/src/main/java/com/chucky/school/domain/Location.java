@@ -18,7 +18,7 @@ import lombok.Setter;
 public class Location {
   @Id
   @GeneratedValue
-  private long locationId;
+  private long id;
   private long typeId;
   private long capacity;
   private String name;
