@@ -16,10 +16,10 @@ jobs:
         ports:
           - 3306:3306
         env:
+
           MYSQL_ROOT_PASSWORD: 123456
           MYSQL_DATABASE: school-reg
-          MYSQL_USER: root
-          MYSQL_PASSWORD: 123456
+      
         options: >-
           --health-cmd "mysqladmin ping --silent"
           --health-interval 10s
