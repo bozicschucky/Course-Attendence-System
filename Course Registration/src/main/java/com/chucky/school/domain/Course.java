@@ -32,7 +32,7 @@ public class Course {
   private String courseDescription;
   private String department;
   @Embedded
-  private CreatedRecord createdRecord;
+  private AuditData createdRecord;
 
   @ManyToMany
   @JoinTable(

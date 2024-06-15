@@ -15,7 +15,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Faculty extends Person {
+public class Faculty extends Staff {
+  private long id;
   private String Salutation;
   @ElementCollection
   private List<FacultyHobby> hobbies;
