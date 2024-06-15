@@ -1,5 +1,6 @@
 package com.chucky.school.controller;
 
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,9 +30,12 @@ public class CourseController {
       @RequestParam(value = "courseDescription", required = true) String courseDescription,
       @RequestParam(value = "department", required = true) String department,
       @RequestParam(value = "createdBy", required = true) String createdBy) {
-    return ResponseEntity.ok(courseService.createCourse(credits, courseName, courseCode, courseDescription,
-        department,
-        new CreatedRecord(createdBy)));
+
+    Course course = courseService.createCourse(credits, courseName, courseCode, courseDescription, department,
+        new CreatedRecord(createdBy));
+    return ResponseEntity.ok().body(Map.of(
+        "message", "Course created successfully",
+        "course", course));
   }
 
   @GetMapping("/sys-admin/courses")
@@ -52,14 +56,20 @@ public class CourseController {
       @RequestParam(value = "courseDescription", required = true) String courseDescription,
       @RequestParam(value = "department", required = true) String department,
       @RequestParam(value = "createdBy", required = true) String createdBy) {
-    return ResponseEntity.ok(courseService.updateCourse(id,
-        new Course(credits, courseName, courseCode, courseDescription, department, new CreatedRecord(createdBy))));
+    Course course = courseService.updateCourse(id,
+        new Course(credits, courseName, courseCode, courseDescription, department, new CreatedRecord(createdBy)));
+
+    return ResponseEntity.ok().body(Map.of(
+        "message", "Course updated successfully",
+        "course", course));
   }
 
   @DeleteMapping("/sys-admin/courses/{id}")
-  public ResponseEntity<?> deleteCourse(@RequestParam(value = "id", required = true) long id) {
+  public ResponseEntity<?> deleteCourse(@PathVariable(value = "id", required = true) long id) {
     courseService.deleteCourse(id);
-    return ResponseEntity.ok("Course deleted successfully");
+    return ResponseEntity.ok().body(Map.of(
+        "id", id,
+        "message", "Course deleted successfully"));
   }
 
 }
