@@ -12,7 +12,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +19,6 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class Course {
   @Id
@@ -33,6 +31,16 @@ public class Course {
   private String department;
   @Embedded
   private CreatedRecord createdRecord;
+
+  public Course(long credits, String courseName, String courseCode, String courseDescription, String department,
+      CreatedRecord createdRecord) {
+    this.credits = credits;
+    this.courseName = courseName;
+    this.courseCode = courseCode;
+    this.courseDescription = courseDescription;
+    this.department = department;
+    this.createdRecord = createdRecord;
+  }
 
   @ManyToMany
   @JoinTable(
