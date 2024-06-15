@@ -6,39 +6,25 @@ import com.chucky.school.domain.Course;
 import com.chucky.school.domain.CreatedRecord;
 import com.chucky.school.repository.CourseRepository;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@Getter
+@Setter
 public class CourseService implements ICourseService {
 
   @Autowired
   private CourseRepository courseRepository;
 
-  private long credits;
-  private String courseName;
-  private String courseCode;
-  private String courseDescription;
-  private String department;
-  private CreatedRecord createdRecord;
-
-  public CourseService() {
-  }
-
-  public CourseService(long credits, String courseName, String courseCode, String courseDescription, String department,
+  public void createCourse(long credits, String courseName, String courseCode, String courseDescription,
+      String department,
       CreatedRecord createdRecord) {
-    this.credits = credits;
-    this.courseName = courseName;
-    this.courseCode = courseCode;
-    this.courseDescription = courseDescription;
-    this.department = department;
-    this.createdRecord = createdRecord;
-  }
-
-  public void createCourse() {
     Course course = new Course(credits, courseName, courseCode, courseDescription, department, createdRecord);
     courseRepository.save(course);
-
   }
 
   public Course readCourse(String courseName) {
