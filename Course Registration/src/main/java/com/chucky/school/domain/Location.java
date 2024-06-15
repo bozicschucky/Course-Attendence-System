@@ -23,7 +23,7 @@ public class Location {
   private long capacity;
   private String name;
   @Embedded
-  private CreatedRecord createdRecord;
+  private AuditData createdRecord;
   @ManyToOne
   private LocationType locationType;
 }

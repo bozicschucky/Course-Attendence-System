@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Embeddable
-public class CreatedRecord {
+public class AuditData {
   private String createdOn;
   private String createdBy;
   private String updatedOn;
