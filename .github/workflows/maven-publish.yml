@@ -46,8 +46,6 @@ jobs:
             sleep 5
           done
 
-      - name: Run tests with Maven
-        run: mvn -B test --file "Course Registration/pom.xml"
-
+ 
       - name: Build with Maven
         run: mvn -B package --file "Course Registration/pom.xml"
