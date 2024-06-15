@@ -30,13 +30,11 @@ public class CourseService implements ICourseService {
 
   public Course readCourse(String courseName) {
     Course course = courseRepository.findByCourseName(courseName);
-    System.out.println(course);
     return course;
   }
 
   public List<Course> readAllCourses() {
     List<Course> courses = courseRepository.findAll();
-    System.out.println(courses);
     return courses;
   }
 
@@ -53,6 +51,5 @@ public class CourseService implements ICourseService {
 
   public void deleteCourse(long id) {
     courseRepository.deleteById(id);
-    System.out.println("Course deleted successfully");
   }
 }
