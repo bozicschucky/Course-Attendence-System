@@ -20,11 +20,12 @@ public class CourseService implements ICourseService {
   @Autowired
   private CourseRepository courseRepository;
 
-  public void createCourse(long credits, String courseName, String courseCode, String courseDescription,
+  public Course createCourse(long credits, String courseName, String courseCode, String courseDescription,
       String department,
       CreatedRecord createdRecord) {
     Course course = new Course(credits, courseName, courseCode, courseDescription, department, createdRecord);
     courseRepository.save(course);
+    return  course;
   }
 
   public Course readCourse(String courseName) {
