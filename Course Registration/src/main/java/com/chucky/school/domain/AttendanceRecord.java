@@ -2,8 +2,6 @@ package com.chucky.school.domain;
 
 import java.time.LocalDateTime;
 
-import java.util.List;
-
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
