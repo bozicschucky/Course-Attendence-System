@@ -9,18 +9,18 @@ import lombok.Setter;
 @Setter
 @Getter
 @Embeddable
-public class CreatedRecord {
+public class AuditData {
   private LocalDateTime createdOn;
   private String createdBy;
   private LocalDateTime updatedOn;
   private String updatedBy;
 
-  public CreatedRecord() {
+  public AuditData() {
     this.createdOn = LocalDateTime.now();
     this.updatedOn = LocalDateTime.now();
   }
 
-  public CreatedRecord(String createdBy) {
+  public AuditData(String createdBy) {
     this.createdBy = createdBy;
     this.createdOn = LocalDateTime.now();
     this.updatedOn = LocalDateTime.now();

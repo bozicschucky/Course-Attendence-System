@@ -20,5 +20,5 @@ public class LocationType {
   private long id;
   private String type;
   @Embedded
-  private CreatedRecord createdRecord;
+  private AuditData createdRecord;
 }

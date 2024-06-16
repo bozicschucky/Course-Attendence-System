@@ -31,7 +31,7 @@ public class Course {
   private String courseDescription;
   private String department;
   @Embedded
-  private CreatedRecord createdRecord;
+  private AuditData createdRecord;
 
   public Course(long credits, String courseName, String courseCode, String courseDescription, String department,
       CreatedRecord createdRecord) {
