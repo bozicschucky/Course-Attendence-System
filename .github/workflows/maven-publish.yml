@@ -76,6 +76,6 @@ jobs:
           distribution: 'temurin'
 
       - name: Build with Maven
-        run: mvn -B package --file "Course Registration/pom.xml"
+        run: mvn -B package --file "Course-Attendence-System/Course-Attendence-System/Course Registration/pom.xml"
       - name: Test with Maven
-        run: mvn test --file pom.xml
+        run: mvn test --file "Course-Attendence-System/Course-Attendence-System/Course Registration/pom.xml"
