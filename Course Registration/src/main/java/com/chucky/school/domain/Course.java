@@ -7,12 +7,12 @@ import java.util.Set;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,11 +20,10 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public class Course {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
   private long credits;
   private String courseName;
@@ -33,6 +32,16 @@ public class Course {
   private String department;
   @Embedded
   private AuditData createdRecord;
+
+  public Course(long credits, String courseName, String courseCode, String courseDescription, String department,
+      AuditData createdRecord) {
+    this.credits = credits;
+    this.courseName = courseName;
+    this.courseCode = courseCode;
+    this.courseDescription = courseDescription;
+    this.department = department;
+    this.createdRecord = createdRecord;
+  }
 
   @ManyToMany
   @JoinTable(
