@@ -1,10 +1,9 @@
 package com.chucky.school.domain;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.Embeddable;
 import lombok.Getter;
 import lombok.Setter;
+import java.time.LocalDateTime;
 
 @Setter
 @Getter

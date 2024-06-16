@@ -3,7 +3,7 @@ package com.chucky.school.service;
 import java.util.List;
 
 import com.chucky.school.domain.Course;
-import com.chucky.school.domain.CreatedRecord;
+import com.chucky.school.domain.AuditData;
 import com.chucky.school.repository.CourseRepository;
 
 import lombok.Getter;
@@ -22,7 +22,7 @@ public class CourseService implements ICourseService {
 
   public Course createCourse(long credits, String courseName, String courseCode, String courseDescription,
       String department,
-      CreatedRecord createdRecord) {
+      AuditData createdRecord) {
     Course course = new Course(credits, courseName, courseCode, courseDescription, department, createdRecord);
     courseRepository.save(course);
     return  course;

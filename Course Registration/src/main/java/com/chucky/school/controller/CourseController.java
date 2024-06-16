@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.chucky.school.domain.Course;
-import com.chucky.school.domain.CreatedRecord;
+import com.chucky.school.domain.AuditData;
 import com.chucky.school.service.CourseService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,7 +32,7 @@ public class CourseController {
       @RequestParam(value = "createdBy", required = true) String createdBy) {
 
     Course course = courseService.createCourse(credits, courseName, courseCode, courseDescription, department,
-        new CreatedRecord(createdBy));
+        new AuditData(createdBy));
     return ResponseEntity.ok().body(Map.of(
         "message", "Course created successfully",
         "course", course));
@@ -57,7 +57,7 @@ public class CourseController {
       @RequestParam(value = "department", required = true) String department,
       @RequestParam(value = "createdBy", required = true) String createdBy) {
     Course course = courseService.updateCourse(id,
-        new Course(credits, courseName, courseCode, courseDescription, department, new CreatedRecord(createdBy)));
+        new Course(credits, courseName, courseCode, courseDescription, department, new AuditData(createdBy)));
 
     return ResponseEntity.ok().body(Map.of(
         "message", "Course updated successfully",

@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.chucky.school.domain.Course;
-import com.chucky.school.domain.CreatedRecord;
+import com.chucky.school.domain.AuditData;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,9 +26,9 @@ public class CourseRepositoryTest {
     @BeforeEach
     public void setUp() {
         Course course1 = new Course(3, "Math", "MATH101", "Introduction to Mathematics", "Mathematics Department",
-                new CreatedRecord("Admin"));
+                new AuditData("Admin"));
         Course course2 = new Course(4, "Science", "SCI101", "Introduction to Science", "Science Department",
-                new CreatedRecord("Admin"));
+                new AuditData("Admin"));
         entityManager.persist(course1);
         entityManager.persist(course2);
         entityManager.flush();

@@ -34,7 +34,7 @@ public class Course {
   private AuditData createdRecord;
 
   public Course(long credits, String courseName, String courseCode, String courseDescription, String department,
-      CreatedRecord createdRecord) {
+      AuditData createdRecord) {
     this.credits = credits;
     this.courseName = courseName;
     this.courseCode = courseCode;

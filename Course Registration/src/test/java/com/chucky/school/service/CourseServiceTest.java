@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.chucky.school.domain.Course;
-import com.chucky.school.domain.CreatedRecord;
+import com.chucky.school.domain.AuditData;
 import com.chucky.school.repository.CourseRepository;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -39,7 +39,7 @@ public class CourseServiceTest {
     String courseCode = "MATH101";
     String courseDescription = "Introduction to Mathematics";
     String department = "Mathematics Department";
-    CreatedRecord createdRecord = new CreatedRecord("Admin");
+    AuditData createdRecord = new AuditData("Admin");
     Course course = new Course(credits, courseName, courseCode, courseDescription, department, createdRecord);
 
     when(courseRepository.save(any(Course.class))).thenReturn(course);
@@ -55,7 +55,7 @@ public class CourseServiceTest {
   public void testReadCourse() {
     String courseName = "Math";
     Course course = new Course(3, courseName, "MATH101", "Introduction to Mathematics", "Mathematics Department",
-        new CreatedRecord("Admin"));
+        new AuditData("Admin"));
 
     when(courseRepository.findByCourseName(courseName)).thenReturn(course);
     Course retrievedCourse = courseService.readCourse(courseName);
@@ -69,9 +69,9 @@ public class CourseServiceTest {
   public void testReadAllCourses() {
     List<Course> courses = new ArrayList<>();
     courses.add(new Course(3, "Math", "MATH101", "Introduction to Mathematics", "Mathematics Department",
-        new CreatedRecord("Admin")));
+        new AuditData("Admin")));
     courses.add(new Course(4, "Science", "SCI101", "Introduction to Science", "Science Department",
-        new CreatedRecord("Admin")));
+        new AuditData("Admin")));
 
     when(courseRepository.findAll()).thenReturn(courses);
     List<Course> retrievedCourses = courseService.readAllCourses();
@@ -85,9 +85,9 @@ public class CourseServiceTest {
   public void testUpdateCourse() {
     long id = 1;
     Course existingCourse = new Course(3, "Math", "MATH101", "Introduction to Mathematics",
-        "Mathematics Department", new CreatedRecord("Admin"));
+        "Mathematics Department", new AuditData("Admin"));
     Course updatedCourse = new Course(3, "Mathematics", "MATH101", "Introduction to Mathematics",
-        "Mathematics Department", new CreatedRecord("Admin"));
+        "Mathematics Department", new AuditData("Admin"));
 
     when(courseRepository.findById(id)).thenReturn(Optional.of(existingCourse));
     when(courseRepository.save(existingCourse)).thenReturn(existingCourse);

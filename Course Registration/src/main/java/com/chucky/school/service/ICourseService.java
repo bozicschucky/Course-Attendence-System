@@ -3,11 +3,11 @@ package com.chucky.school.service;
 import java.util.List;
 
 import com.chucky.school.domain.Course;
-import com.chucky.school.domain.CreatedRecord;
+import com.chucky.school.domain.AuditData;
 
 public interface ICourseService {
   public Course createCourse(long credits, String courseName, String courseCode, String courseDescription,
-      String department, CreatedRecord createdRecord);
+      String department, AuditData createdRecord);
 
   public Course readCourse(String courseName);
 
