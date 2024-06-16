@@ -1,6 +1,10 @@
 # Goal & About the Project
 The goal of this project is to give you hands-on, practical experience with building a RESTful system of microservices using Spring Boot, Spring MVC, Spring Security, Spring Data JPA and Spring Cloud Services.
 
+# Code Coverage and Build Status
+
+![Java CI with Maven](https://github.com/bozicschucky/Course-Attendence-System/actions/workflows/maven-publish.yml/badge.svg?branch=main)
+
 # Course Attendance System
 We are trying to create a collection of RESTful web services to automate the process of course attendance taking for Compro students. Imagine we have a badge scanner at every classroom and every day that you go to class, you scan your badge on your way in. The scanner should create an AttendanceRecord for each badge scan that has the student barcode number (could be alphanumeric QR code also), location ID as well as date and time of the scan.
 

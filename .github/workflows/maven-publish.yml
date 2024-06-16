@@ -24,3 +24,6 @@ jobs:
         run: mvn -B package --file "Course Registration/pom.xml"
       - name: Test with Maven
         run: mvn test --file "Course Registration/pom.xml"
+
+      - name: Report coverage with JaCoCo and Coveralls
+        run: mvn clean test jacoco:report coveralls:report --file "Course Registration/pom.xml"
