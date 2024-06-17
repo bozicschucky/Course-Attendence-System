@@ -16,8 +16,6 @@ public class SchoolApplication implements CommandLineRunner {
 	public static void main(String[] args) {
 		SpringApplication.run(SchoolApplication.class, args);
 	}
-
 	@Override
-	public void run(String... args) throws Exception {
-	}
+	public void run(String... args) throws Exception {}
 }
