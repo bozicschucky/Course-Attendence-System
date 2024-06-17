@@ -15,9 +15,15 @@ import lombok.Setter;
 @Embeddable
 public class FacultyHobby {
   private List<String> hobbies;
-  FacultyHobby() {
+  public FacultyHobby() {
     hobbies = new ArrayList<>();
   }
+
+  public FacultyHobby(String hobby) {
+    hobbies = new ArrayList<>();
+    hobbies.add(hobby);
+  }
+
   public void addHobby(String hobby) {
     hobbies.add(hobby);
   }
