@@ -11,6 +11,7 @@ import exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.util.List;
 
 @Service
@@ -70,12 +71,19 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
     @Override
     public CourseOffering updateCourseOffering(long id, CourseOffering courseOffering) {
         CourseOffering courseOfferingToUpdate = courseOfferingRepository.getReferenceById(id);
+
+
         courseOfferingToUpdate.setId(courseOffering.getId());
         courseOfferingToUpdate.setCapacity(courseOffering.getCapacity());
         courseOfferingToUpdate.setCourse(courseOffering.getCourse());
         courseOfferingToUpdate.setCourseOfferingType(courseOffering.getCourseOfferingType());
         courseOfferingToUpdate.setRoom(courseOffering.getRoom());
-        courseOfferingToUpdate.setAuditData(courseOffering.getAuditData());
+        courseOfferingToUpdate.setAuditData(new AuditData(
+                courseOfferingToUpdate.getAuditData().getCreatedOn(),
+                courseOfferingToUpdate.getAuditData().getCreatedBy(),
+                courseOffering.getAuditData().getUpdatedOn(),
+                courseOffering.getAuditData().getUpdatedBy()
+        ));
         courseOfferingToUpdate.setFaculty(courseOffering.getFaculty());
         courseOfferingRepository.save(courseOfferingToUpdate);
         return courseOffering;
@@ -84,7 +92,6 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
     @Override
     public void deleteCourseOffering(long id) {
         courseOfferingRepository.deleteById(id);
-
     }
 
     @Override
