@@ -3,6 +3,7 @@ package com.chucky.school.controller;
 import com.chucky.school.service.StudentService;
 import com.chucky.school.Adaptor.StudentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,9 +27,15 @@ public class StudentController {
         return ResponseEntity.ok(student);
     }
 
-    @PostMapping
+    /*@PostMapping
     public StudentDTO createStudent(@RequestBody StudentDTO studentDTO) {
         return studentService.createStudent(studentDTO);
+    }*/
+
+    @PostMapping
+    public ResponseEntity<StudentDTO> createStudent(@RequestBody StudentDTO studentDTO) {
+        StudentDTO createdStudent = studentService.createStudent(studentDTO);
+        return new ResponseEntity<>(createdStudent, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
@@ -42,5 +49,4 @@ public class StudentController {
         studentService.deleteStudent(id);
         return ResponseEntity.noContent().build();
     }
-
 }
