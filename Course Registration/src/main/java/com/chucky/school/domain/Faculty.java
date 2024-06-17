@@ -14,9 +14,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 public class Faculty extends Staff {
-  private long id;
+  //private long id;
   private String Salutation;
   @ElementCollection
   private List<FacultyHobby> hobbies;
@@ -24,13 +24,20 @@ public class Faculty extends Staff {
   @OneToMany(mappedBy = "faculty")
   private List<CourseOffering> courseOfferings;
 
+  public Faculty(String Salutation,List<FacultyHobby> hobbies, List<CourseOffering> courseOfferings){
+    this.Salutation = Salutation;
+    this.hobbies = hobbies;
+    this.courseOfferings = courseOfferings;
+
+  }
+/*
   public long getId() {
     return id;
   }
 
   public void setId(long id) {
     this.id = id;
-  }
+  }*/
 
   public String getSalutation() {
     return Salutation;
