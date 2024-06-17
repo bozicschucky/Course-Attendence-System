@@ -3,8 +3,7 @@ package com.chucky.school.service;
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.chucky.school.Adaptor.StudentDTO;
-import com.chucky.school.domain.Faculty;
-import com.chucky.school.domain.Student;
+import com.chucky.school.domain.*;
 import com.chucky.school.repository.StudentRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -35,30 +35,39 @@ class StudentServiceTest {
 
     @Test
     void testGetAllStudents() {
-        Faculty faculty = new Faculty( "Dr.", null, null);
-        Student student = new Student(1L, "2024-01-01", 101L, 201L, faculty);
+        Faculty faculty = new Faculty("Payman", "Salek",GenderType.MALE, "payman@miu.edu.com",
+                LocalDate.of(1960, 04,17), null, "paysalek","pay123" , "Faculty", "Dr.", null, null);
+        Student student = new Student("Eman", "Shemsu", GenderType.FEMALE, "eman@miu.edu", LocalDate.of(1995, 12,18), null, "emanawel", "eman123", 2L,
+                "2023-10-03", 101L, 201L, faculty) ;
+
         when(studentRepository.findAll()).thenReturn(Arrays.asList(student));
 
         List<StudentDTO> students = studentService.getAllStudents();
         assertEquals(1, students.size());
-        assertEquals(1L, students.get(0).getStudentId());
+        assertEquals(2L, students.get(0).getStudentId());
     }
 
     @Test
     void testGetStudentById() {
-        Faculty faculty = new Faculty( "Dr.", null, null);
-        Student student = new Student(1L, "2024-01-01", 101L, 201L, faculty);
+        Faculty faculty = new Faculty("Payman", "Salek",GenderType.MALE, "payman@miu.edu.com",
+                LocalDate.of(1960, 04,17), null, "paysalek","pay123" , "Faculty", "Dr.", null, null);
+        Student student = new Student("Eman", "Shemsu", GenderType.FEMALE, "eman@miu.edu", LocalDate.of(1995, 12,18), null, "emanawel", "eman123", 2L,
+                "2023-10-03", 101L, 201L, faculty) ;
+
         when(studentRepository.findById(1L)).thenReturn(Optional.of(student));
 
         Optional<StudentDTO> studentDTO = studentService.getStudentById(1L);
         assertTrue(studentDTO.isPresent());
-        assertEquals(1L, studentDTO.get().getStudentId());
+        assertEquals(2L, studentDTO.get().getStudentId());
     }
 
     @Test
     void testCreateStudent() {
-        Faculty faculty = new Faculty( "Dr.", null, null);
-        Student student = new Student(1L, "2024-01-01", 101L, 201L, faculty);
+        Faculty faculty = new Faculty("Payman", "Salek",GenderType.MALE, "payman@miu.edu.com",
+                LocalDate.of(1960, 04,17), null, "paysalek","pay123" , "Faculty", "Dr.", null, null);
+        Student student = new Student("Eman", "Shemsu", GenderType.FEMALE, "eman@miu.edu", LocalDate.of(1995, 12,18), null, "emanawel", "eman123", 2L,
+                "2023-10-03", 101L, 201L, faculty) ;
+
         StudentDTO studentDTO = new StudentDTO();
         studentDTO.setStudentId(1L);
         studentDTO.setEntry("2024-01-01");
@@ -68,14 +77,17 @@ class StudentServiceTest {
         when(studentRepository.save(any(Student.class))).thenReturn(student);
 
         StudentDTO createdStudent = studentService.createStudent(studentDTO);
-        assertEquals(1L, createdStudent.getStudentId());
+        assertEquals(2L, createdStudent.getStudentId());
     }
 
     @Test
     void testUpdateStudent() {
-        Faculty faculty = new Faculty( "Dr.", null, null);
-        Student student = new Student(10L, "2024-01-01", 101L, 201L, faculty);
+        Faculty faculty = new Faculty("Payman", "Salek",GenderType.MALE, "payman@miu.edu.com",
+                LocalDate.of(1960, 04,17), null, "paysalek","pay123" , "Faculty", "Dr.", null, null);
+        Student student = new Student("Eman", "Shemsu", GenderType.FEMALE, "eman@miu.edu", LocalDate.of(1995, 12,18), null, "emanawel", "eman123", 2L,
+                "2023-10-03", 101L, 201L, faculty) ;
         StudentDTO studentDTO = new StudentDTO();
+
         studentDTO.setStudentId(10L);
         studentDTO.setEntry("2024-01-01");
         studentDTO.setAlternateId(102L);

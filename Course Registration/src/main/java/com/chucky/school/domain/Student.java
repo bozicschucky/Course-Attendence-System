@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Entity
 //@Getter
 //@Setter
@@ -20,14 +22,18 @@ public class Student extends Person {
   @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name="facultyAdvisorId")
   private Faculty facultyAdvisorId;
-  public Student () {}
-  public Student(long studentId, String Entry, long alternateId, long applicantId, Faculty faculty){
+
+
+  public Student(String firstName, String lastName, GenderType genderType, String emailAddress, LocalDate dateOfBirth, AuditData createdRecord, String username, String password, long studentId, String entry, long alternateId, long applicantId, Faculty facultyAdvisorId) {
+    super(firstName, lastName, genderType, emailAddress, dateOfBirth, createdRecord, username, password);
     this.studentId = studentId;
-    this.Entry = Entry;
-    this.alternateId= alternateId;
+    Entry = entry;
+    this.alternateId = alternateId;
     this.applicantId = applicantId;
-    facultyAdvisorId = faculty;
+    this.facultyAdvisorId = facultyAdvisorId;
   }
+  public Student () {}
+
 
   public long getStudentId() {
     return studentId;

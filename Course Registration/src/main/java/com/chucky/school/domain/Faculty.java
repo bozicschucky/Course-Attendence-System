@@ -1,5 +1,6 @@
 package com.chucky.school.domain;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.ElementCollection;
@@ -19,11 +20,11 @@ public class Faculty extends Staff {
   @OneToMany(mappedBy = "faculty")
   private List<CourseOffering> courseOfferings;
 
-  public Faculty(String Salutation,List<FacultyHobby> hobbies, List<CourseOffering> courseOfferings){
-    this.Salutation = Salutation;
+  public Faculty(String firstName, String lastName, GenderType genderType, String emailAddress, LocalDate dateOfBirth, AuditData createdRecord, String username, String password, String role, String salutation, List<FacultyHobby> hobbies, List<CourseOffering> courseOfferings) {
+    super(firstName, lastName, genderType, emailAddress, dateOfBirth, createdRecord, username, password, role);
+    Salutation = salutation;
     this.hobbies = hobbies;
     this.courseOfferings = courseOfferings;
-
   }
 
   public String getSalutation() {
