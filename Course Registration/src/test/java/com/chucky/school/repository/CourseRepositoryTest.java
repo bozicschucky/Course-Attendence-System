@@ -25,9 +25,9 @@ public class CourseRepositoryTest {
 
     @BeforeEach
     public void setUp() {
-        Course course1 = new Course(3, "CS404", "SA", "Software Architecture", "COMPRO",
+        Course course1 = new Course(3, "Math", "MATH101", "Introduction to Mathematics", "Mathematics Department",
                 new AuditData("Admin"));
-        Course course2 = new Course(4, "CS550", "EA", "Enterprise Architecture", "COMPRO",
+        Course course2 = new Course(4, "Science", "SCI101", "Introduction to Science", "Science Department",
                 new AuditData("Admin"));
         entityManager.persist(course1);
         entityManager.persist(course2);
@@ -36,8 +36,8 @@ public class CourseRepositoryTest {
 
     @Test
     public void findByCourseName_ExistingCourse_ReturnsCourse() {
-        Course course = courseRepository.findByCourseName("SA");
+        Course course = courseRepository.findByCourseName("Math");
         assertNotNull(course);
-        assertEquals("SA", course.getCourseName());
+        assertEquals("Math", course.getCourseName());
     }
 }
