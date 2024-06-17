@@ -78,12 +78,8 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
         courseOfferingToUpdate.setCourse(courseOffering.getCourse());
         courseOfferingToUpdate.setCourseOfferingType(courseOffering.getCourseOfferingType());
         courseOfferingToUpdate.setRoom(courseOffering.getRoom());
-        courseOfferingToUpdate.setAuditData(new AuditData(
-                courseOfferingToUpdate.getAuditData().getCreatedOn(),
-                courseOfferingToUpdate.getAuditData().getCreatedBy(),
-                courseOffering.getAuditData().getUpdatedOn(),
-                courseOffering.getAuditData().getUpdatedBy()
-        ));
+        courseOfferingToUpdate.setAuditData(courseOffering.getAuditData()
+        );
         courseOfferingToUpdate.setFaculty(courseOffering.getFaculty());
         courseOfferingRepository.save(courseOfferingToUpdate);
         return courseOffering;
