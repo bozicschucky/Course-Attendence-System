@@ -12,7 +12,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
+//@NoArgsConstructor
 //@AllArgsConstructor
 public class Student extends Person {
   private long studentId;
@@ -22,6 +22,7 @@ public class Student extends Person {
   @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name="facultyAdvisorId")
   private Faculty facultyAdvisorId;
+  public Student () {}
   public Student(long studentId, String Entry, long alternateId, long applicantId, Faculty faculty){
     this.studentId = studentId;
     this.Entry = Entry;

@@ -74,18 +74,18 @@ class StudentServiceTest {
     @Test
     void testUpdateStudent() {
         Faculty faculty = new Faculty( "Dr.", null, null);
-        Student student = new Student(1L, "2024-01-01", 101L, 201L, faculty);
+        Student student = new Student(10L, "2024-01-01", 101L, 201L, faculty);
         StudentDTO studentDTO = new StudentDTO();
-        studentDTO.setStudentId(1L);
+        studentDTO.setStudentId(10L);
         studentDTO.setEntry("2024-01-01");
-        studentDTO.setAlternateId(101L);
+        studentDTO.setAlternateId(102L);
         studentDTO.setApplicantId(201L);
 
         when(studentRepository.findById(1L)).thenReturn(Optional.of(student));
         when(studentRepository.save(any(Student.class))).thenReturn(student);
 
         StudentDTO updatedStudent = studentService.updateStudent(1L, studentDTO);
-        assertEquals(1L, updatedStudent.getStudentId());
+        assertEquals(102L, updatedStudent.getAlternateId());
     }
 
     @Test
