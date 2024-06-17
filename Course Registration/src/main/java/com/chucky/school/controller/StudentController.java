@@ -25,7 +25,7 @@ public class StudentController {
         StudentDTO student = studentService.getStudentById(id).orElseThrow(() -> new RuntimeException("Student not found"));
         return ResponseEntity.ok(student);
     }
-/*
+
     @PostMapping
     public StudentDTO createStudent(@RequestBody StudentDTO studentDTO) {
         return studentService.createStudent(studentDTO);
@@ -42,5 +42,5 @@ public class StudentController {
         studentService.deleteStudent(id);
         return ResponseEntity.noContent().build();
     }
-    */
+
 }
