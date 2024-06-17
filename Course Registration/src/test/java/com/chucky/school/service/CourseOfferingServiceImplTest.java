@@ -67,21 +67,6 @@ public class CourseOfferingServiceImplTest {
     }
 
 
-
-
-    @Test
-    void testGetCourseOfferingByIdCourse() {
-        long courseOfferingId = 1L;
-        CourseOffering courseOffering = new CourseOffering();
-
-        when(courseOfferingRepository.getReferenceById(courseOfferingId)).thenReturn(courseOffering);
-
-        CourseOffering result = courseOfferingService.getCourseOfferingByIdCourse(courseOfferingId);
-
-        assertNotNull(result);
-        assertEquals(courseOffering, result);
-    }
-
     @Test
     void testGetAllCourseOfferings() {
         List<CourseOffering> courseOfferings = List.of(new CourseOffering(), new CourseOffering());
@@ -119,16 +104,5 @@ public class CourseOfferingServiceImplTest {
         verify(courseOfferingRepository, times(1)).deleteById(courseOfferingId);
     }
 
-    @Test
-    void testGetCourseOfferingByCourseID() {
-        long courseId = 1L;
-        List<CourseOffering> courseOfferings = List.of(new CourseOffering(), new CourseOffering());
 
-        when(courseOfferingRepository.getCourseOfferingByCourseID(courseId)).thenReturn(courseOfferings);
-
-        List<CourseOffering> result = courseOfferingService.getCourseOfferingByCourseID(courseId);
-
-        assertNotNull(result);
-        assertEquals(courseOfferings.size(), result.size());
-    }
 }

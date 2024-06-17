@@ -27,25 +27,19 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
 
     @Override
     public CourseOffering createCourseOffering(String courseOfferingType, long capacity, String room, AuditData auditData, long courseId, long facultyId) {
-        Course course = null;
-        Faculty faculty = null;
-        try {
-            course = courseRepository.findCourseById(courseId);
-            if (course == null) {
-                throw new ResourceNotFoundException("Unable to Find the course with provided courseID ");
-            }
 
-        } catch (Exception e) {
+        Course course = courseRepository.findCourseById(courseId);
+        if (course == null) {
+            throw new ResourceNotFoundException("Unable to Find the course with provided courseID ");
         }
 
-        try {
-            faculty = facultyRepository.findFacultiesById(facultyId);
-            if (faculty == null) {
-                throw new ResourceNotFoundException("Unable to Find the Faculty with provided courseID ");
-            }
 
-        } catch (Exception e) {
+        Faculty faculty = facultyRepository.findFacultiesById(facultyId);
+        if (faculty == null) {
+            throw new ResourceNotFoundException("Unable to Find the Faculty with provided FacultyId ");
         }
+
+
         CourseOffering courseOffering = CourseOffering.builder()
                 .capacity(capacity)
                 .course(course)
@@ -58,10 +52,6 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
         return courseOffering;
     }
 
-    @Override
-    public CourseOffering getCourseOfferingByIdCourse(long courseOfferingId) {
-        return courseOfferingRepository.getReferenceById(courseOfferingId);
-    }
 
     @Override
     public List<CourseOffering> getAllCoursOffering() {
@@ -91,7 +81,9 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
     }
 
     @Override
-    public List<CourseOffering> getCourseOfferingByCourseID(long courseId) {
-        return courseOfferingRepository.getCourseOfferingByCourseID(courseId);
+    public CourseOffering getCourseOfferingByID(long courseofferingId) {
+        return courseOfferingRepository.getCourseOfferingById(courseofferingId);
     }
+
+
 }

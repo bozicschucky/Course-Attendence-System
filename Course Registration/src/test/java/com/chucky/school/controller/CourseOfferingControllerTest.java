@@ -49,7 +49,7 @@ public class CourseOfferingControllerTest {
     @Test
     public void testGetCourseOfferingById() {
         CourseOffering courseOffering = new CourseOffering();
-        when(courseOfferingService.getCourseOfferingByIdCourse(anyLong())).thenReturn(courseOffering);
+        when(courseOfferingService.getCourseOfferingByID(anyLong())).thenReturn(courseOffering);
 
         ResponseEntity<CourseOffering> response = courseOfferingController.getCourseOfferingById(1L);
 
@@ -59,7 +59,7 @@ public class CourseOfferingControllerTest {
 
     @Test
     public void testGetCourseOfferingByIdNotFound() {
-        when(courseOfferingService.getCourseOfferingByIdCourse(anyLong())).thenReturn(null);
+        when(courseOfferingService.getCourseOfferingByID(anyLong())).thenReturn(null);
 
         try {
             courseOfferingController.getCourseOfferingById(1L);
@@ -97,14 +97,4 @@ public class CourseOfferingControllerTest {
         assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
     }
 
-    @Test
-    public void testGetCourseOfferingsByCourseId() {
-        List<CourseOffering> courseOfferings = Arrays.asList(new CourseOffering(), new CourseOffering());
-        when(courseOfferingService.getCourseOfferingByCourseID(anyLong())).thenReturn(courseOfferings);
-
-        ResponseEntity<List<CourseOffering>> response = courseOfferingController.getCourseOfferingsByCourseId(1L);
-
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(courseOfferings, response.getBody());
-    }
 }

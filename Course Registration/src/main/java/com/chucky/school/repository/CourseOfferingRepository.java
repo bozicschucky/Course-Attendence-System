@@ -11,7 +11,6 @@ import java.util.List;
 
 @Repository
 public interface CourseOfferingRepository extends JpaRepository<CourseOffering, Long> {
-    @Query("SELECT cof FROM CourseOffering cof WHERE cof.course.id=:courseID")
-    public List<CourseOffering> getCourseOfferingByCourseID(@Param("courseID") Long courseID);
+      CourseOffering getCourseOfferingById(long id);
 
 }
