@@ -21,10 +21,10 @@ public class CourseOfferingController {
             @RequestParam String courseOfferingType,
             @RequestParam long capacity,
             @RequestParam String room,
-            @RequestParam AuditData auditData,
+            @RequestParam String createdBy,
             @RequestParam long courseId,
             @RequestParam long facultyId) {
-        CourseOffering courseOffering = courseOfferingService.createCourseOffering(courseOfferingType, capacity, room, auditData, courseId, facultyId);
+        CourseOffering courseOffering = courseOfferingService.createCourseOffering(courseOfferingType, capacity, room, new AuditData(createdBy), courseId, facultyId);
         return ResponseEntity.ok(courseOffering);
     }
 

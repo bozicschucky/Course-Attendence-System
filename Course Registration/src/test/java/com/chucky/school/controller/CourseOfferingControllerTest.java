@@ -40,7 +40,7 @@ public class CourseOfferingControllerTest {
         when(courseOfferingService.createCourseOffering(anyString(), anyLong(), anyString(), any(AuditData.class), anyLong(), anyLong()))
                 .thenReturn(courseOffering);
 
-        ResponseEntity<CourseOffering> response = courseOfferingController.createCourseOffering("Lecture", 100, "Room 101", new AuditData(), 1L, 1L);
+        ResponseEntity<CourseOffering> response = courseOfferingController.createCourseOffering("Lecture", 100, "Room 101", "Admin", 1L, 1L);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(courseOffering, response.getBody());
