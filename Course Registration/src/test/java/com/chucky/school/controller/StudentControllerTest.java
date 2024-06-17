@@ -93,8 +93,6 @@ class StudentControllerTest {
                         .content("{\"studentId\": 1, \"entry\": \"2024-01-01\", \"alternateId\": \"101\", \"applicantId\": \"201\", \"facultyAdvisor\": null }"))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.studentId", is(1)));
-
-
     }
 
     @Test

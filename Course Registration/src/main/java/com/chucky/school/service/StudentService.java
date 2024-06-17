@@ -55,6 +55,22 @@ public class StudentService {
         studentDTO.setEntry(student.getEntry());
         studentDTO.setAlternateId(student.getAlternateId());
         studentDTO.setApplicantId(student.getApplicantId());
+        studentDTO.setFirstName(student.getFirstName());
+        studentDTO.setLastName(student.getLastName());
+        studentDTO.setGenderType(student.getGenderType());
+        studentDTO.setEmailAddress(student.getEmailAddress());
+        studentDTO.setDateOfBirth(student.getDateOfBirth());
+        studentDTO.setCreatedRecord(student.getCreatedRecord());
+        studentDTO.setUsername(student.getUsername());
+        studentDTO.setPassword(student.getPassword());
+        studentDTO.setStudentId(student.getStudentId());
+        studentDTO.setEntry(student.getEntry());
+        studentDTO.setAlternateId(student.getAlternateId());
+        studentDTO.setApplicantId(student.getApplicantId());
+        //studentDTO.setFacultyAdvisor(student.getFacultyAdvisorId());
+
+
+
         //studentDTO.setFacultyAdvisorId(student.getFacultyAdvisorId() != null ? student.getFacultyAdvisorId().getFacultyAdvisorId() : null);
         return studentDTO;
     }
@@ -65,6 +81,18 @@ public class StudentService {
         student.setEntry(studentDTO.getEntry());
         student.setAlternateId(studentDTO.getAlternateId());
         student.setApplicantId(studentDTO.getApplicantId());
+        student.setFirstName(studentDTO.getFirstName());
+        student.setLastName(studentDTO.getLastName());
+        student.setEntry(studentDTO.getEntry());
+        student.setEmailAddress(studentDTO.getEmailAddress());
+        student.setDateOfBirth(studentDTO.getDateOfBirth());
+        student.setCreatedRecord(studentDTO.getCreatedRecord());
+        student.setUsername(studentDTO.getUsername());
+        student.setPassword(studentDTO.getPassword());
+        student.setStudentId(studentDTO.getStudentId());
+        student.setAlternateId(studentDTO.getAlternateId());
+        student.setApplicantId(studentDTO.getApplicantId());
+        //student.setFacultyAdvisorId(studentDTO.getFacultyAdvisor());
 
         /*if (studentDTO.getFacultyAdvisorId() != null) {
             Faculty faculty = new Faculty();
