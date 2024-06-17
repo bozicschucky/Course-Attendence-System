@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("")
 public class CourseOfferingController {
 
     @Autowired
@@ -29,9 +28,9 @@ public class CourseOfferingController {
         return ResponseEntity.ok(courseOffering);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("sys-admin/course-offerings/{id}")
     public ResponseEntity<CourseOffering> getCourseOfferingById(@PathVariable long id) {
-        CourseOffering courseOffering = courseOfferingService.getCourseOfferingByIdCourse(id);
+        CourseOffering courseOffering = courseOfferingService.getCourseOfferingByID(id);
         if (courseOffering == null) {
             throw new ResourceNotFoundException("Course Offering not found with id " + id);
         }
@@ -56,9 +55,5 @@ public class CourseOfferingController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("sys-admin/course-offerings/course/{courseId}")
-    public ResponseEntity<List<CourseOffering>> getCourseOfferingsByCourseId(@PathVariable long courseId) {
-        List<CourseOffering> courseOfferings = courseOfferingService.getCourseOfferingByCourseID(courseId);
-        return ResponseEntity.ok(courseOfferings);
-    }
+
 }
