@@ -18,7 +18,6 @@ import java.util.List;
 public class CourseOfferingServiceImpl implements CourseOfferingService {
     @Autowired
     CourseOfferingRepository courseOfferingRepository;
-
     @Autowired
     CourseRepository courseRepository;
 
@@ -33,13 +32,10 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
             throw new ResourceNotFoundException("Unable to Find the course with provided courseID ");
         }
 
-
         Faculty faculty = facultyRepository.findFacultiesById(facultyId);
         if (faculty == null) {
             throw new ResourceNotFoundException("Unable to Find the Faculty with provided FacultyId ");
         }
-
-
         CourseOffering courseOffering = CourseOffering.builder()
                 .capacity(capacity)
                 .course(course)
@@ -61,8 +57,6 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
     @Override
     public CourseOffering updateCourseOffering(long id, CourseOffering courseOffering) {
         CourseOffering courseOfferingToUpdate = courseOfferingRepository.getReferenceById(id);
-
-
         courseOfferingToUpdate.setId(courseOffering.getId());
         courseOfferingToUpdate.setCapacity(courseOffering.getCapacity());
         courseOfferingToUpdate.setCourse(courseOffering.getCourse());
