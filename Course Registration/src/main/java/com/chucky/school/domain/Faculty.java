@@ -11,12 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
-//@AllArgsConstructor
 public class Faculty extends Staff {
-  //private long id;
   private String Salutation;
   @ElementCollection
   private List<FacultyHobby> hobbies;
@@ -30,14 +25,6 @@ public class Faculty extends Staff {
     this.courseOfferings = courseOfferings;
 
   }
-/*
-  public long getId() {
-    return id;
-  }
-
-  public void setId(long id) {
-    this.id = id;
-  }*/
 
   public String getSalutation() {
     return Salutation;

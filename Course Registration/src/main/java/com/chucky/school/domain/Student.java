@@ -10,10 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
-//@NoArgsConstructor
-//@AllArgsConstructor
+//@Getter
+//@Setter
 public class Student extends Person {
   private long studentId;
   private String Entry;
