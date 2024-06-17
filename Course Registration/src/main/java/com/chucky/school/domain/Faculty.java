@@ -24,4 +24,35 @@ public class Faculty extends Staff {
   @OneToMany(mappedBy = "faculty")
   private List<CourseOffering> courseOfferings;
 
+  public long getId() {
+    return id;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  public String getSalutation() {
+    return Salutation;
+  }
+
+  public void setSalutation(String salutation) {
+    Salutation = salutation;
+  }
+
+  public List<FacultyHobby> getHobbies() {
+    return hobbies;
+  }
+
+  public void setHobbies(List<FacultyHobby> hobbies) {
+    this.hobbies = hobbies;
+  }
+
+  public List<CourseOffering> getCourseOfferings() {
+    return courseOfferings;
+  }
+
+  public void setCourseOfferings(List<CourseOffering> courseOfferings) {
+    this.courseOfferings = courseOfferings;
+  }
 }

@@ -23,4 +23,43 @@ public class Student extends Person {
   @JoinColumn(name="facultyAdvisorId")
   private Faculty facultyAdvisorId;
 
+  public long getStudentId() {
+    return studentId;
+  }
+
+  public void setStudentId(long studentId) {
+    this.studentId = studentId;
+  }
+
+  public String getEntry() {
+    return Entry;
+  }
+
+  public void setEntry(String entry) {
+    Entry = entry;
+  }
+
+  public long getAlternateId() {
+    return alternateId;
+  }
+
+  public void setAlternateId(long alternateId) {
+    this.alternateId = alternateId;
+  }
+
+  public long getApplicantId() {
+    return applicantId;
+  }
+
+  public void setApplicantId(long applicantId) {
+    this.applicantId = applicantId;
+  }
+
+  public Faculty getFacultyAdvisorId() {
+    return facultyAdvisorId;
+  }
+
+  public void setFacultyAdvisorId(Faculty facultyAdvisorId) {
+    this.facultyAdvisorId = facultyAdvisorId;
+  }
 }
