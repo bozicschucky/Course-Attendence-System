@@ -21,4 +21,9 @@ public class LocationType {
   private String type;
   @Embedded
   private AuditData createdRecord;
+
+  public LocationType(String type, AuditData createdRecord) {
+    this.type = type;
+    this.createdRecord = createdRecord;
+  }
 }
