@@ -1,5 +1,6 @@
 package com.chucky.school.controller;
 
+import com.chucky.school.DTO.CourseOfferingDetailsDTO;
 import com.chucky.school.domain.AuditData;
 import com.chucky.school.domain.CourseOffering;
 import com.chucky.school.service.CourseOfferingService;
@@ -16,25 +17,30 @@ public class CourseOfferingController {
     @Autowired
     private CourseOfferingService courseOfferingService;
 
-    @PostMapping
-    public ResponseEntity<CourseOffering> createCourseOffering(
+    @PostMapping("sys-admin/course-offerings")
+    public ResponseEntity<CourseOfferingDetailsDTO> createCourseOffering(
             @RequestParam String courseOfferingType,
             @RequestParam long capacity,
             @RequestParam String room,
             @RequestParam String createdBy,
             @RequestParam long courseId,
             @RequestParam long facultyId) {
-        CourseOffering courseOffering = courseOfferingService.createCourseOffering(courseOfferingType, capacity, room, new AuditData(createdBy), courseId, facultyId);
+        CourseOfferingDetailsDTO courseOffering = courseOfferingService.createCourseOffering(courseOfferingType, capacity, room, new AuditData(createdBy), courseId, facultyId);
         return ResponseEntity.ok(courseOffering);
     }
 
     @GetMapping("sys-admin/course-offerings/{id}")
-    public ResponseEntity<CourseOffering> getCourseOfferingById(@PathVariable long id) {
-        CourseOffering courseOffering = courseOfferingService.getCourseOfferingByID(id);
+    public ResponseEntity<CourseOfferingDetailsDTO> getCourseOfferingById(@PathVariable long id) {
+        CourseOfferingDetailsDTO courseOffering = courseOfferingService.getCourseOfferingByID(id);
         if (courseOffering == null) {
             throw new ResourceNotFoundException("Course Offering not found with id " + id);
         }
         return ResponseEntity.ok(courseOffering);
+    }
+
+    @GetMapping("sys-admin/courseOfferings/details")
+    public List<CourseOfferingDetailsDTO> getCourseOfferingDetails() {
+        return courseOfferingService.getCourseOfferingDetails();
     }
 
     @GetMapping("sys-admin/course-offerings/all")
@@ -43,12 +49,18 @@ public class CourseOfferingController {
         return ResponseEntity.ok(courseOfferings);
     }
 
+
     @PutMapping("sys-admin/course-offerings/{id}")
-    public ResponseEntity<CourseOffering> updateCourseOffering(@PathVariable long id, @RequestBody CourseOffering courseOffering) {
-        CourseOffering updatedCourseOffering = courseOfferingService.updateCourseOffering(id, courseOffering);
+    public ResponseEntity<CourseOfferingDetailsDTO> updateCourseOffering(@PathVariable long id,
+                                                                         @RequestParam String courseOfferingType,
+                                                                         @RequestParam long capacity,
+                                                                         @RequestParam String room,
+                                                                         @RequestParam String updatedBy,
+                                                                         @RequestParam long courseId,
+                                                                         @RequestParam long facultyId) {
+        CourseOfferingDetailsDTO updatedCourseOffering = courseOfferingService.updateCourseOffering(id, courseOfferingType, capacity, room, updatedBy, courseId, facultyId);
         return ResponseEntity.ok(updatedCourseOffering);
     }
-
     @DeleteMapping("sys-admin/course-offerings/remove/{id}")
     public ResponseEntity<Void> deleteCourseOffering(@PathVariable long id) {
         courseOfferingService.deleteCourseOffering(id);

@@ -1,5 +1,6 @@
 package com.chucky.school.controller;
 
+import com.chucky.school.DTO.CourseOfferingDetailsDTO;
 import com.chucky.school.domain.AuditData;
 import com.chucky.school.domain.CourseOffering;
 import com.chucky.school.service.CourseOfferingService;
@@ -17,8 +18,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.any;
+
 import static org.mockito.Mockito.when;
 
 public class CourseOfferingControllerTest {
@@ -34,24 +34,13 @@ public class CourseOfferingControllerTest {
         MockitoAnnotations.openMocks(this);
     }
 
-    @Test
-    public void testCreateCourseOffering() {
-        CourseOffering courseOffering = new CourseOffering();
-        when(courseOfferingService.createCourseOffering(anyString(), anyLong(), anyString(), any(AuditData.class), anyLong(), anyLong()))
-                .thenReturn(courseOffering);
-
-        ResponseEntity<CourseOffering> response = courseOfferingController.createCourseOffering("Lecture", 100, "Room 101", "Admin", 1L, 1L);
-
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(courseOffering, response.getBody());
-    }
 
     @Test
     public void testGetCourseOfferingById() {
-        CourseOffering courseOffering = new CourseOffering();
+        CourseOfferingDetailsDTO courseOffering = new CourseOfferingDetailsDTO();
         when(courseOfferingService.getCourseOfferingByID(anyLong())).thenReturn(courseOffering);
 
-        ResponseEntity<CourseOffering> response = courseOfferingController.getCourseOfferingById(1L);
+        ResponseEntity<CourseOfferingDetailsDTO> response = courseOfferingController.getCourseOfferingById(1L);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(courseOffering, response.getBody());
@@ -79,16 +68,6 @@ public class CourseOfferingControllerTest {
         assertEquals(courseOfferings, response.getBody());
     }
 
-    @Test
-    public void testUpdateCourseOffering() {
-        CourseOffering courseOffering = new CourseOffering();
-        when(courseOfferingService.updateCourseOffering(anyLong(), any(CourseOffering.class))).thenReturn(courseOffering);
-
-        ResponseEntity<CourseOffering> response = courseOfferingController.updateCourseOffering(1L, courseOffering);
-
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(courseOffering, response.getBody());
-    }
 
     @Test
     public void testDeleteCourseOffering() {

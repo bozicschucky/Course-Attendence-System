@@ -1,5 +1,6 @@
 package com.chucky.school.service;
 
+import com.chucky.school.DTO.CourseOfferingDetailsDTO;
 import com.chucky.school.domain.AuditData;
 import com.chucky.school.domain.CourseOffering;
 import org.springframework.stereotype.Service;
@@ -9,14 +10,12 @@ import java.util.List;
 
 @Service
 public interface CourseOfferingService {
-      CourseOffering createCourseOffering( String courseOfferingType, long capacity, String room, AuditData auditData,long courseId, long facultyId );
+      CourseOfferingDetailsDTO createCourseOffering( String courseOfferingType, long capacity, String room, AuditData auditData,long courseId, long facultyId );
       List<CourseOffering> getAllCoursOffering();
-
-      CourseOffering updateCourseOffering(long id, CourseOffering courseOffering);
-
+      CourseOfferingDetailsDTO updateCourseOffering(long id,String courseOfferingType, long capacity, String room, String updatedBy, long courseId, long facultyId );;
       void deleteCourseOffering(long id);
-
-        CourseOffering getCourseOfferingByID(long courseId);
+        CourseOfferingDetailsDTO getCourseOfferingByID(long courseId);
+      List<CourseOfferingDetailsDTO> getCourseOfferingDetails();
 
 
 }
