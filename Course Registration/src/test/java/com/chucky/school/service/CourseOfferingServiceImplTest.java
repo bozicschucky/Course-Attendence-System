@@ -16,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
@@ -77,6 +78,17 @@ public class CourseOfferingServiceImplTest {
 
         assertNotNull(result);
         assertEquals(courseOfferings.size(), result.size());
+    }
+
+    @Test
+    void testGetCourseOfferings() {
+        CourseOfferingDetailsDTO courseOfferingDTO = new CourseOfferingDetailsDTO();
+        long courseofferingId = 1L;
+        when(courseOfferingRepository.getCourseOfferingDTOById(courseofferingId)).thenReturn(courseOfferingDTO);
+        CourseOfferingDetailsDTO result = courseOfferingService.getCourseOfferingByID(courseofferingId);
+        verify(courseOfferingRepository, times(1)).getCourseOfferingDTOById(courseofferingId);
+        assertEquals(courseOfferingDTO, result);
+
     }
 
 //    @Test
