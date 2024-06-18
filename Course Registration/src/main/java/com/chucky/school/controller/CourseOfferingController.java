@@ -68,6 +68,14 @@ public class CourseOfferingController {
         courseOfferingService.deleteCourseOffering(id);
         return ResponseEntity.noContent().build();
     }
+    @GetMapping("student-view/course-offerings/{id}")
+    public ResponseEntity<CourseOfferingDetailsDTO> getCourseOfferingByIdForStudent(@PathVariable long id) {
+        CourseOfferingDetailsDTO courseOffering = courseOfferingService.getCourseOfferingByID(id);
+        if (courseOffering == null) {
+            throw new ResourceNotFoundException("Course Offering not found with id " + id);
+        }
+        return ResponseEntity.ok(courseOffering);
+    }
 
 
 }

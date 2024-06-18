@@ -45,6 +45,16 @@ public class CourseOfferingControllerTest {
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(courseOffering, response.getBody());
     }
+    @Test
+    public void testGetCourseOfferingByIdForStudent() {
+        CourseOfferingDetailsDTO courseOffering = new CourseOfferingDetailsDTO();
+        when(courseOfferingService.getCourseOfferingByID(anyLong())).thenReturn(courseOffering);
+
+        ResponseEntity<CourseOfferingDetailsDTO> response = courseOfferingController.getCourseOfferingByIdForStudent(1L);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(courseOffering, response.getBody());
+    }
 
     @Test
     public void testGetCourseOfferingByIdNotFound() {
