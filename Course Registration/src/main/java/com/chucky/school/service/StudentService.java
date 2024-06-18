@@ -77,6 +77,7 @@ public class StudentService {
 
     private Student convertToEntity(StudentDTO studentDTO) {
         Student student = new Student();
+
         student.setStudentId(studentDTO.getStudentId());
         student.setEntry(studentDTO.getEntry());
         student.setAlternateId(studentDTO.getAlternateId());
@@ -104,6 +105,8 @@ public class StudentService {
 
         return student;
     }
+    public Optional<StudentDTO> getStudentBystudentID(Long studentID) {
+        return studentRepository.findBystudentID(studentID).map(this::convertToDTO);
+    }
 }
-
 

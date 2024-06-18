@@ -12,43 +12,42 @@ import java.util.List;
 
 @Tag(name = "Student", description = "The Student API")
 @RestController
-@RequestMapping("/sys-admin/students")
 public class StudentController {
 
     @Autowired
     private StudentService studentService;
 
-    @GetMapping
+    @GetMapping("/sys-admin/students")
     public List<StudentDTO> getAllStudents() {
         return studentService.getAllStudents();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/sys-admin/students/{id}")
     public ResponseEntity<StudentDTO> getStudentById(@PathVariable Long id) {
         StudentDTO student = studentService.getStudentById(id).orElseThrow(() -> new RuntimeException("Student not found"));
         return ResponseEntity.ok(student);
     }
 
-    /*@PostMapping
-    public StudentDTO createStudent(@RequestBody StudentDTO studentDTO) {
-        return studentService.createStudent(studentDTO);
-    }*/
-
-    @PostMapping
+    @PostMapping("/sys-admin/students")
     public ResponseEntity<StudentDTO> createStudent(@RequestBody StudentDTO studentDTO) {
         StudentDTO createdStudent = studentService.createStudent(studentDTO);
         return new ResponseEntity<>(createdStudent, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/sys-admin/students/{id}")
     public ResponseEntity<StudentDTO> updateStudent(@PathVariable Long id, @RequestBody StudentDTO studentDTO) {
         StudentDTO updatedStudent = studentService.updateStudent(id, studentDTO);
         return ResponseEntity.ok(updatedStudent);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/sys-admin/students/{id}")
     public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
         studentService.deleteStudent(id);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/admin-view/students/{studentID}")
+    public ResponseEntity<StudentDTO> getStudentByIdForAdmin(@PathVariable Long studentID) {
+        StudentDTO student = studentService.getStudentBystudentID(studentID).orElseThrow(() -> new RuntimeException("Student not found"));
+        return ResponseEntity.ok(student);
     }
 }
