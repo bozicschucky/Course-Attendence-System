@@ -19,8 +19,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-//@NoArgsConstructor
-//@AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @SecondaryTable(name = "PersonAccount", pkJoinColumns = @PrimaryKeyJoinColumn(name = "id"))
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -50,5 +50,5 @@ public abstract class Person {
     this.username = username;
     this.password = password;
   }
-  public Person() {}
+
 }

@@ -1,6 +1,8 @@
 package com.chucky.school.domain;
 
 import jakarta.persistence.Embeddable;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import java.time.LocalDateTime;
@@ -8,6 +10,8 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @Embeddable
+@AllArgsConstructor
+@Builder
 public class AuditData {
   private LocalDateTime createdOn;
   private String createdBy;
