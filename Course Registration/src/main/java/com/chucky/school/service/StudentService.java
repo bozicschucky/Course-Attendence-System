@@ -1,15 +1,11 @@
 package com.chucky.school.service;
 
-import com.chucky.school.Adaptor.StudentDTO;
-import com.chucky.school.domain.Faculty;
 import com.chucky.school.domain.Student;
 import com.chucky.school.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -17,93 +13,34 @@ public class StudentService {
     @Autowired
     private StudentRepository studentRepository;
 
-    public List<StudentDTO> getAllStudents() {
-        return studentRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
+    public List<Student> getAllStudents() {
+        return studentRepository.findAll();
     }
 
-    public Optional<StudentDTO> getStudentById(Long id) {
-        return studentRepository.findById(id).map(this::convertToDTO);
+    public Student getStudentById(Long id) {
+        return studentRepository.findById(id).get();
     }
 
-    public StudentDTO createStudent(StudentDTO studentDTO) {
-        Student student = convertToEntity(studentDTO);
-        Student savedStudent = studentRepository.save(student);
-        return convertToDTO(savedStudent);
+    public Student createStudent(Student student) {
+        return studentRepository.save(student);
     }
 
-    public StudentDTO updateStudent(Long id, StudentDTO studentDTO) {
-        Student student = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Student not found"));
-        student.setEntry(studentDTO.getEntry());
-        student.setAlternateId(studentDTO.getAlternateId());
-        student.setApplicantId(studentDTO.getApplicantId());
-
-        //Faculty faculty = new Faculty();
-        //faculty.setFacultyAdvisorId(studentDTO.getFacultyAdvisorId());
-        //student.setFacultyAdvisorId(faculty);
-
-        Student updatedStudent = studentRepository.save(student);
-        return convertToDTO(updatedStudent);
+    public Student updateStudent(Long id, Student student) {
+        Student foundStudent = studentRepository.findById(id).get();
+        if (foundStudent == null) {
+            return null;
+        }
+        student.setEntry(foundStudent.getEntry());
+        student.setAlternateId(foundStudent.getAlternateId());
+        student.setApplicantId(foundStudent.getApplicantId());
+        student.setFacultyAdvisorId(foundStudent.getFacultyAdvisorId());
+        return studentRepository.save(foundStudent);
     }
 
     public void deleteStudent(Long id) {
         studentRepository.deleteById(id);
     }
 
-    private StudentDTO convertToDTO(Student student) {
-        StudentDTO studentDTO = new StudentDTO();
-        studentDTO.setStudentId(student.getStudentId());
-        studentDTO.setEntry(student.getEntry());
-        studentDTO.setAlternateId(student.getAlternateId());
-        studentDTO.setApplicantId(student.getApplicantId());
-        studentDTO.setFirstName(student.getFirstName());
-        studentDTO.setLastName(student.getLastName());
-        studentDTO.setGenderType(student.getGenderType());
-        studentDTO.setEmailAddress(student.getEmailAddress());
-        studentDTO.setDateOfBirth(student.getDateOfBirth());
-        studentDTO.setCreatedRecord(student.getCreatedRecord());
-        studentDTO.setUsername(student.getUsername());
-        studentDTO.setPassword(student.getPassword());
-        studentDTO.setStudentId(student.getStudentId());
-        studentDTO.setEntry(student.getEntry());
-        studentDTO.setAlternateId(student.getAlternateId());
-        studentDTO.setApplicantId(student.getApplicantId());
-        //studentDTO.setFacultyAdvisor(student.getFacultyAdvisorId());
-
-
-
-        //studentDTO.setFacultyAdvisorId(student.getFacultyAdvisorId() != null ? student.getFacultyAdvisorId().getFacultyAdvisorId() : null);
-        return studentDTO;
-    }
-
-    private Student convertToEntity(StudentDTO studentDTO) {
-        Student student = new Student();
-        student.setStudentId(studentDTO.getStudentId());
-        student.setEntry(studentDTO.getEntry());
-        student.setAlternateId(studentDTO.getAlternateId());
-        student.setApplicantId(studentDTO.getApplicantId());
-        student.setFirstName(studentDTO.getFirstName());
-        student.setLastName(studentDTO.getLastName());
-        student.setEntry(studentDTO.getEntry());
-        student.setEmailAddress(studentDTO.getEmailAddress());
-        student.setDateOfBirth(studentDTO.getDateOfBirth());
-        student.setCreatedRecord(studentDTO.getCreatedRecord());
-        student.setUsername(studentDTO.getUsername());
-        student.setPassword(studentDTO.getPassword());
-        student.setStudentId(studentDTO.getStudentId());
-        student.setAlternateId(studentDTO.getAlternateId());
-        student.setApplicantId(studentDTO.getApplicantId());
-        //student.setFacultyAdvisorId(studentDTO.getFacultyAdvisor());
-
-        /*if (studentDTO.getFacultyAdvisorId() != null) {
-            Faculty faculty = new Faculty();
-            //faculty.setFacultyAdvisorId(studentDTO.getFacultyAdvisorId());
-            student.setFacultyAdvisorId(faculty);
-        } else {
-            student.setFacultyAdvisorId(null);
-        }*/
-
-        return student;
-    }
 }
 
 

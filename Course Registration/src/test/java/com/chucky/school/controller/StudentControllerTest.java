@@ -2,7 +2,6 @@ package com.chucky.school.controller;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
 import com.chucky.school.domain.AuditData;
 import com.chucky.school.domain.GenderType;
 import com.chucky.school.service.StudentService;
@@ -45,7 +44,6 @@ class StudentControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(studentController).build();
     }
 
-
     @Test
     void testGetAllStudents() throws Exception {
         StudentDTO studentDTO = new StudentDTO();
@@ -76,9 +74,8 @@ class StudentControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.studentId", is(1)));
     }
-    // Test commented out because it was tested and working on Postman
-    /*@Test
 
+    @Test
     void testCreateStudent() throws Exception {
         StudentDTO studentDTO = new StudentDTO();
         studentDTO.setStudentId(1L);
@@ -89,8 +86,9 @@ class StudentControllerTest {
         when(studentService.createStudent(studentDTO)).thenReturn(studentDTO);
 
         mockMvc.perform(post("/sys-admin/students")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"studentId\": 1, \"entry\": \"2024-01-01\", \"alternateId\": \"101\", \"applicantId\": \"201\", \"facultyAdvisor\": null }"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(
+                        "{\"studentId\": 1, \"entry\": \"2024-01-01\", \"alternateId\": \"101\", \"applicantId\": \"201\", \"facultyAdvisor\": null }"))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.studentId", is(1)));
     }
@@ -106,11 +104,12 @@ class StudentControllerTest {
         when(studentService.updateStudent(1L, studentDTO)).thenReturn(studentDTO);
 
         mockMvc.perform(put("/sys-admin/students/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{ \"studentId\": \"1L\", \"entry\": \"2024-01-01\", \"alternateId\": \"101\", \"applicantId\": \"201\" }"))
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(
+                        "{ \"studentId\": \"1L\", \"entry\": \"2024-01-01\", \"alternateId\": \"101\", \"applicantId\": \"201\" }"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.studentId", is(1)));
-    }*/
+    }
 
     @Test
     void testDeleteStudent() throws Exception {
@@ -118,5 +117,3 @@ class StudentControllerTest {
                 .andExpect(status().isNoContent());
     }
 }
-
-
