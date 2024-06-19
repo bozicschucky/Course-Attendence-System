@@ -4,10 +4,17 @@ package com.chucky.school.Adaptor;
 import com.chucky.school.domain.AuditData;
 import com.chucky.school.domain.GenderType;
 import com.chucky.school.domain.Person;
+import lombok.Getter;
+import lombok.Setter;
+import org.checkerframework.common.aliasing.qual.Unique;
 
 import java.time.LocalDate;
+@Getter
+@Setter
+public class StudentDTO extends Person  {
 
-public class StudentDTO extends Person {
+    private long id;
+    @Unique
     private long studentId;
     private String entry;
     private long alternateId;
@@ -24,45 +31,4 @@ public class StudentDTO extends Person {
     }
     public StudentDTO() {}
 
-
-    // Getters and Setters
-    public long getStudentId() {
-        return studentId;
-    }
-
-    public void setStudentId(long studentId) {
-        this.studentId = studentId;
-    }
-
-    public String getEntry() {
-        return entry;
-    }
-
-    public void setEntry(String entry) {
-        this.entry = entry;
-    }
-
-    public long getAlternateId() {
-        return alternateId;
-    }
-
-    public void setAlternateId(long alternateId) {
-        this.alternateId = alternateId;
-    }
-
-    public long getApplicantId() {
-        return applicantId;
-    }
-
-    public void setApplicantId(long applicantId) {
-        this.applicantId = applicantId;
-    }
-
-    public FacultyDTO getFacultyAdvisor() {
-        return facultyAdvisor;
-    }
-
-    public void setFacultyAdvisor(FacultyDTO facultyAdvisor) {
-        this.facultyAdvisor = facultyAdvisor;
-    }
 }

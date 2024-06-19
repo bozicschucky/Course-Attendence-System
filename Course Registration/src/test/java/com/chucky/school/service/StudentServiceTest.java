@@ -37,28 +37,28 @@ class StudentServiceTest {
     void testGetAllStudents() {
         Faculty faculty = new Faculty("Payman", "Salek",GenderType.MALE, "payman@miu.edu.com",
                 LocalDate.of(1960, 04,17), null, "paysalek","pay123" , "Faculty", "Dr.", null, null);
-        Student student = new Student("Eman", "Shemsu", GenderType.FEMALE, "eman@miu.edu", LocalDate.of(1995, 12,18), null, "emanawel", "eman123", 2L,
-                "2023-10-03", 101L, 201L, faculty) ;
+        Student student = new Student("Eman", "Shemsu", GenderType.FEMALE, "eman@miu.edu", LocalDate.of(1995, 12,18), null, "emanawel", "eman123",
+                7L, "2023-10-03", 101L, 201L, faculty) ;
+        Student student2 = new Student("Eman", "Shemsu", GenderType.FEMALE, "eman@miu.edu", LocalDate.of(1995, 12,18), null, "emanawel", "eman123",
+                5L, "2023-10-03", 101L, 201L, faculty) ;
 
-        when(studentRepository.findAll()).thenReturn(Arrays.asList(student));
-
+        when(studentRepository.findAll()).thenReturn(Arrays.asList(student, student2));
         List<StudentDTO> students = studentService.getAllStudents();
-        assertEquals(1, students.size());
-        assertEquals(2L, students.get(0).getStudentId());
+        assertEquals(2, students.size());
     }
 
     @Test
     void testGetStudentById() {
         Faculty faculty = new Faculty("Payman", "Salek",GenderType.MALE, "payman@miu.edu.com",
                 LocalDate.of(1960, 04,17), null, "paysalek","pay123" , "Faculty", "Dr.", null, null);
-        Student student = new Student("Eman", "Shemsu", GenderType.FEMALE, "eman@miu.edu", LocalDate.of(1995, 12,18), null, "emanawel", "eman123", 2L,
-                "2023-10-03", 101L, 201L, faculty) ;
+        Student student = new Student("Eman", "Shemsu", GenderType.FEMALE, "eman@miu.edu", LocalDate.of(1995, 12,18), null, "emanawel", "eman123",
+                2L, "2023-10-03", 101L, 201L, faculty) ;
 
         when(studentRepository.findById(1L)).thenReturn(Optional.of(student));
 
         Optional<StudentDTO> studentDTO = studentService.getStudentById(1L);
         assertTrue(studentDTO.isPresent());
-        assertEquals(2L, studentDTO.get().getStudentId());
+        assertEquals(0, studentDTO.get().getId());
     }
 
     @Test
@@ -104,5 +104,28 @@ class StudentServiceTest {
     void testDeleteStudent() {
         studentService.deleteStudent(1L);
         verify(studentRepository, times(1)).deleteById(1L);
+    }
+
+    @Test
+    void testGetStudentBystudentId() {
+        Faculty faculty = new Faculty("Payman", "Salek",GenderType.MALE, "payman@miu.edu.com",
+                LocalDate.of(1960, 04,17), null, "paysalek","pay123" , "Faculty", "Dr.", null, null);
+        Student student = new Student("Eman", "Shemsu", GenderType.FEMALE, "eman@miu.edu", LocalDate.of(1995, 12,18), null,
+                "emanawel", "eman123", 12L,
+                "2023-10-03", 101L, 201L, faculty) ;
+        when(studentRepository.findBystudentID(12L)).thenReturn(Optional.of((student)));
+        Optional<StudentDTO> studentDTO = studentService.getStudentBystudentID(12L);
+        assertTrue(studentDTO.isPresent());
+        assertEquals(12, studentDTO.get().getStudentId());
+    }
+    @Test
+    void testGetStudentBystudentId_Not_Found() {
+        Faculty faculty = new Faculty("Payman", "Salek",GenderType.MALE, "payman@miu.edu.com",
+                LocalDate.of(1960, 04,17), null, "paysalek","pay123" , "Faculty", "Dr.", null, null);
+        Student student = new Student("Eman", "Shemsu", GenderType.FEMALE, "eman@miu.edu", LocalDate.of(1995, 12,18), null, "emanawel", "eman123",
+                22L, "2023-10-03", 101L, 201L, faculty) ;
+        when(studentRepository.findBystudentID(22L)).thenReturn(Optional.of((student)));
+        Optional<StudentDTO> studentDTO = studentService.getStudentBystudentID(2L);
+        assertTrue(!studentDTO.isPresent());
     }
 }
