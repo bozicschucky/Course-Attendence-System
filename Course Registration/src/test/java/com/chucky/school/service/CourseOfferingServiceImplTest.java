@@ -9,6 +9,8 @@ import com.chucky.school.repository.CourseOfferingRepository;
 import com.chucky.school.repository.CourseRepository;
 import com.chucky.school.repository.FacultyRepository;
 
+import jakarta.persistence.Embedded;
+import jakarta.persistence.ManyToOne;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -92,6 +94,79 @@ public class CourseOfferingServiceImplTest {
 
         verify(courseOfferingRepository, times(1)).deleteById(courseOfferingId);
     }
+   @Test
+    void  testgetCourseOfferingsInSessionOn(){
+        Course course1 = new Course(50, "cs45", "12345", "EA", "CS", null);
+
+        Course course2 = new Course(50, "cs32", "12345", "WAA", "CS", null);
+
+
+
+       CourseOffering courseOffering1 = CourseOffering.builder()
+               .capacity(40)
+               .courseOfferingType("Type1")
+               .room("607")
+               .auditData(null)
+               .startDate(LocalDate.of(2024,01,01))
+               .endDate(LocalDate.of(2024,01,30))
+               .course(course1).build();
+       CourseOffering courseOffering2 = CourseOffering.builder()
+               .capacity(40)
+               .courseOfferingType("Type2")
+               .room("777")
+               .auditData(null)
+               .startDate(LocalDate.of(2024,01,04))
+               .endDate(LocalDate.of(2024,02,04))
+               .course(course2).build();
+
+
+       List<Course> courses = List.of(course1, course2);
+
+       when(courseOfferingRepository.findCourseOfferingsInSessionOn(LocalDate.of(2024,01,05))).thenReturn(courses);
+       List<Course> result = courseOfferingService.getCourseOfferingsInSessionOn(LocalDate.of(2024,01,05));
+
+       assertNotNull(result);
+       assertEquals(courses.size(), result.size());
+
+
+
+   }
+
+    @Test
+    void  testgetCourseOfferingsInSessionOn_Not_found(){
+        Course course1 = new Course(50, "cs45", "12345", "EA", "CS", null);
+        Course course2 = new Course(50, "cs32", "12345", "WAA", "CS", null);
+
+        CourseOffering courseOffering1 = CourseOffering.builder()
+                .capacity(40)
+                .courseOfferingType("Type1")
+                .room("607")
+                .auditData(null)
+                .startDate(LocalDate.of(2024,01,01))
+                .endDate(LocalDate.of(2024,01,30))
+                .course(course1).build();
+        CourseOffering courseOffering2 = CourseOffering.builder()
+                .capacity(40)
+                .courseOfferingType("Type2")
+                .room("777")
+                .auditData(null)
+                .startDate(LocalDate.of(2024,01,04))
+                .endDate(LocalDate.of(2024,02,04))
+                .course(course2).build();
+
+
+        List<Course> courses = List.of();
+
+        when(courseOfferingRepository.findCourseOfferingsInSessionOn(LocalDate.of(2024,05,05))).thenReturn(courses);
+        List<Course> result = courseOfferingService.getCourseOfferingsInSessionOn(LocalDate.of(2024,05,05));
+
+        assertEquals(courses, result);
+        assertEquals(courses.size(), result.size());
+
+
+
+    }
+
 
 
 }
