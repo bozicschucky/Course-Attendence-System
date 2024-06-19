@@ -64,7 +64,8 @@ public class CourseOfferingControllerTest {
     public void testGetAllCourseOfferings() {
         List<CourseOfferingDetailsDTO> courseOfferings = Arrays.asList(new CourseOfferingDetailsDTO(), new CourseOfferingDetailsDTO());
         when(courseOfferingService.getAllCoursOffering()).thenReturn(courseOfferings);
-        ResponseEntity<List<CourseOfferingDetailsDTO>> response = courseOfferingController.getAllCourseOfferings();
+        //ResponseEntity<List<CourseOfferingDetailsDTO>>
+                var response = courseOfferingController.getAllCourseOfferings();
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(courseOfferings, response.getBody());
     }
