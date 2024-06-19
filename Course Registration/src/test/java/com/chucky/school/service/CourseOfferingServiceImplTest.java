@@ -8,22 +8,14 @@ import com.chucky.school.domain.Faculty;
 import com.chucky.school.repository.CourseOfferingRepository;
 import com.chucky.school.repository.CourseRepository;
 import com.chucky.school.repository.FacultyRepository;
-
-import jakarta.persistence.Embedded;
-import jakarta.persistence.ManyToOne;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;

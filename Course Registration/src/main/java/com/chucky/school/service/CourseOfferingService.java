@@ -17,7 +17,6 @@ public interface CourseOfferingService {
       CourseOfferingDetailsDTO updateCourseOffering(long id,String courseOfferingType, long capacity, String room, String updatedBy, long courseId, long facultyId, LocalDate startDate, LocalDate endDate);;
       void deleteCourseOffering(long id);
         CourseOfferingDetailsDTO getCourseOfferingByID(long courseId);
-      //List<CourseOfferingDetailsDTO> getCourseOfferingDetails();
       List<Course> getCourseOfferingsInSessionOn(LocalDate date);
 
 

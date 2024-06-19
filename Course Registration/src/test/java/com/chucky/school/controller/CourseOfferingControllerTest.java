@@ -1,7 +1,6 @@
 package com.chucky.school.controller;
 
 import com.chucky.school.DTO.CourseOfferingDetailsDTO;
-import com.chucky.school.domain.AuditData;
 import com.chucky.school.domain.Course;
 import com.chucky.school.domain.CourseOffering;
 import com.chucky.school.service.CourseOfferingService;
@@ -13,15 +12,11 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyLong;
-
 import static org.mockito.Mockito.when;
 
 public class CourseOfferingControllerTest {
@@ -64,8 +59,7 @@ public class CourseOfferingControllerTest {
     public void testGetAllCourseOfferings() {
         List<CourseOfferingDetailsDTO> courseOfferings = Arrays.asList(new CourseOfferingDetailsDTO(), new CourseOfferingDetailsDTO());
         when(courseOfferingService.getAllCoursOffering()).thenReturn(courseOfferings);
-        //ResponseEntity<List<CourseOfferingDetailsDTO>>
-                var response = courseOfferingController.getAllCourseOfferings();
+        var response = courseOfferingController.getAllCourseOfferings();
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(courseOfferings, response.getBody());
     }
@@ -140,7 +134,6 @@ public class CourseOfferingControllerTest {
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(courses, response.getBody());
-
 
     }
 

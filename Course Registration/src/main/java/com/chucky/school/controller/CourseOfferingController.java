@@ -45,11 +45,6 @@ public class CourseOfferingController {
         return ResponseEntity.ok(courseOffering);
     }
 
-    /*@GetMapping("sys-admin/courseOfferings/details")
-    public List<CourseOfferingDetailsDTO> getCourseOfferingDetails() {
-        return courseOfferingService.getCourseOfferingDetails();
-    }*/
-
     @GetMapping("sys-admin/course-offerings/all")
     public ResponseEntity<List<CourseOfferingDetailsDTO>> getAllCourseOfferings() {
         List<CourseOfferingDetailsDTO> courseOfferings = courseOfferingService.getAllCoursOffering();
