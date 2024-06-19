@@ -11,11 +11,11 @@ import java.util.List;
 @Service
 public interface CourseOfferingService {
       CourseOfferingDetailsDTO createCourseOffering( String courseOfferingType, long capacity, String room, AuditData auditData,long courseId, long facultyId );
-      List<CourseOffering> getAllCoursOffering();
+      List<CourseOfferingDetailsDTO> getAllCoursOffering();
       CourseOfferingDetailsDTO updateCourseOffering(long id,String courseOfferingType, long capacity, String room, String updatedBy, long courseId, long facultyId );;
       void deleteCourseOffering(long id);
-        CourseOfferingDetailsDTO getCourseOfferingByID(long courseId);
-      List<CourseOfferingDetailsDTO> getCourseOfferingDetails();
+        CourseOfferingDetailsDTO getCourseOfferingByID(long courseOfferingId);
+
 
 
 }

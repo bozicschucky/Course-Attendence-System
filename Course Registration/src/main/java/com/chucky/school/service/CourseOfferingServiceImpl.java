@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -57,13 +56,10 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
                 .room(courseOffering.getRoom()).build();
     }
 
-    public List<CourseOfferingDetailsDTO> getCourseOfferingDetails() {
-        return courseOfferingRepository.getCourseOfferingDetails();
-    }
-
     @Override
-    public List<CourseOffering> getAllCoursOffering() {
-        return courseOfferingRepository.findAll();
+    public List<CourseOfferingDetailsDTO> getAllCoursOffering() {
+        return
+                courseOfferingRepository.getCourseOfferingDetails();
     }
 
     @Override
@@ -91,9 +87,7 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
         courseOfferingToUpdate.setFaculty(faculty);
         courseOfferingToUpdate.setAuditData(auditData);
 
-
         courseOfferingRepository.save(courseOfferingToUpdate);
-
 
         return CourseOfferingDetailsDTO.builder()
                 .courseOfferingType(courseOfferingType)
