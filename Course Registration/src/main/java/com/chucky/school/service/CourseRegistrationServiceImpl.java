@@ -77,4 +77,8 @@ public class CourseRegistrationServiceImpl implements CourseRegistrationService 
         courseRegistrationRepository.deleteById(registrationId);
 
     }
+
+    public List<Object[]> getAllFromCourseOffering(long courseOfferingId) {
+        return courseRegistrationRepository.getAllfromCourseOffering(courseOfferingId);
+    }
 }

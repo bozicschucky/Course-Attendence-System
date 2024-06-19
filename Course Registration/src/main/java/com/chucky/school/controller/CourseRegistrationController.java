@@ -1,6 +1,7 @@
 package com.chucky.school.controller;
 
 
+import com.chucky.school.DTO.CourseOfferingDetailsDTO;
 import com.chucky.school.domain.CourseRegistration;
 import com.chucky.school.service.CourseRegistrationService;
 import exception.ResourceNotFoundException;
@@ -54,5 +55,14 @@ public class CourseRegistrationController {
     public ResponseEntity<Void> deleteRegistration(@PathVariable long id) {
         courseRegistrationService.deleteRegistration(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("admin-view/course-offerings/{id}")
+    public ResponseEntity<List<Object[]>> getCourseOfferingByIdForAdmin(@PathVariable long id) {
+        List<Object[]> courseOfferingAll = courseRegistrationService.getAllFromCourseOffering(id);
+        if (courseOfferingAll == null) {
+            throw new ResourceNotFoundException("Course Offering not found with id " + id);
+        }
+        return ResponseEntity.ok(courseOfferingAll);
     }
 }

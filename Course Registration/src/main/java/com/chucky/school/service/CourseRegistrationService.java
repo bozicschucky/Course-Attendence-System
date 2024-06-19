@@ -12,5 +12,6 @@ public interface CourseRegistrationService {
  public CourseRegistration updateRegistration(long registrationId,long courseOfferingId, long studentId,char grade);
  List<CourseRegistration> findAllRegistrations();
  public void deleteRegistration(long registrationId);
+ public List<Object[]> getAllFromCourseOffering(long courseOfferingId);
 
 }
