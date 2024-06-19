@@ -1,4 +1,4 @@
-package com.chucky.school.controller;
+package com.chucky.school.controller.auth;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import com.chucky.school.dto.JwtAuthResponse;
 import com.chucky.school.dto.LoginDto;
 import com.chucky.school.service.AuthService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @AllArgsConstructor
 @RestController
@@ -25,6 +27,25 @@ public class AuthController {
     jwtAuthResponse.setAccessToken(token);
 
     return new ResponseEntity<>(jwtAuthResponse, HttpStatus.OK);
+  }
+
+  @PostMapping("/create/faculty")
+  public String createFaculty(@RequestBody String entity) {
+    // TODO: process POST request
+
+    return entity;
+  }
+
+  @PostMapping("/create/student")
+  public String createStudent(@RequestBody String entity) {
+    // TODO: create a student
+    return entity;
+  }
+
+  @PostMapping("/create/staff")
+  public String createStaff(@RequestBody String entity) {
+    // TODO: create a staff
+    return entity;
   }
 
 }

@@ -1,5 +1,6 @@
 package com.chucky.school.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,14 +17,10 @@ import java.io.IOException;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-
+  @Autowired
   private UserDetailsService userDetailsService;
+  @Autowired
   private JwtTokenProvider jwtUtil;
-
-  public JwtAuthenticationFilter(UserDetailsService userDetailsService, JwtTokenProvider jwtUtil) {
-    this.userDetailsService = userDetailsService;
-    this.jwtUtil = jwtUtil;
-  }
 
   @Override
   protected void doFilterInternal(HttpServletRequest request,

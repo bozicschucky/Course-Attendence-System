@@ -1,4 +1,4 @@
-package com.chucky.school.controller;
+package com.chucky.school.controller.auth;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
