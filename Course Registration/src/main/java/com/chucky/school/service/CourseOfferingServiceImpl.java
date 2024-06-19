@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
     FacultyRepository facultyRepository;
 
     @Override
-    public CourseOfferingDetailsDTO createCourseOffering(String courseOfferingType, long capacity, String room, AuditData auditData, long courseId, long facultyId) {
+    public CourseOfferingDetailsDTO createCourseOffering(String courseOfferingType, long capacity, String room, AuditData auditData, long courseId, long facultyId, LocalDate startDate, LocalDate endDate) {
 
         Course course = courseRepository.findCourseById(courseId);
         if (course == null) {
@@ -45,6 +46,8 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
                 .room(room)
                 .auditData(auditData)
                 .faculty(faculty)
+                .startDate(startDate)
+                .endDate(endDate)
                 .build();
         courseOfferingRepository.save(courseOffering);
 
@@ -53,7 +56,10 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
                 .courseId(courseOffering.getCourse().getId())
                 .facultyId(courseOffering.getFaculty().getId())
                 .capacity(courseOffering.getCapacity())
-                .room(courseOffering.getRoom()).build();
+                .startDate(startDate)
+                .endDate(endDate)
+                .room(courseOffering.getRoom())
+                .build();
     }
 
     @Override
@@ -63,7 +69,7 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
     }
 
     @Override
-    public CourseOfferingDetailsDTO updateCourseOffering(long id, String courseOfferingType, long capacity, String room, String updatedBy, long courseId, long facultyId) {
+    public CourseOfferingDetailsDTO updateCourseOffering(long id, String courseOfferingType, long capacity, String room, String updatedBy, long courseId, long facultyId, LocalDate startDate, LocalDate endDate) {
 
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new ResourceNotFoundException("Unable to find the course with provided courseId"));
@@ -83,9 +89,14 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
         courseOfferingToUpdate.setCourseOfferingType(courseOfferingType);
         courseOfferingToUpdate.setCapacity(capacity);
         courseOfferingToUpdate.setRoom(room);
+
         courseOfferingToUpdate.setCourse(course);
         courseOfferingToUpdate.setFaculty(faculty);
         courseOfferingToUpdate.setAuditData(auditData);
+        courseOfferingToUpdate.setStartDate(startDate);
+        courseOfferingToUpdate.setEndDate(endDate);
+
+
 
         courseOfferingRepository.save(courseOfferingToUpdate);
 
@@ -94,6 +105,8 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
                 .courseId(courseId)
                 .facultyId(facultyId)
                 .capacity(capacity)
+                .startDate(startDate)
+                .endDate(endDate)
                 .room(room)
                 .build();
     }
@@ -106,6 +119,11 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
     @Override
     public CourseOfferingDetailsDTO getCourseOfferingByID(long courseofferingId) {
         return courseOfferingRepository.getCourseOfferingDTOById(courseofferingId);
+    }
+
+    public List<Course> getCourseOfferingsInSessionOn(LocalDate date) {
+        List<Course> courses = courseOfferingRepository.findCourseOfferingsInSessionOn(date);
+        return  courses;
     }
 
 

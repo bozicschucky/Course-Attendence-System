@@ -7,6 +7,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Id;
 import lombok.*;
 
+import java.time.LocalDate;
+
+
 @Entity
 @Getter
 @Setter
@@ -27,5 +30,7 @@ public class CourseOffering {
   private Course course;
   @ManyToOne
   private Faculty faculty;
+  private LocalDate startDate;
+  private LocalDate endDate;
 
 }
