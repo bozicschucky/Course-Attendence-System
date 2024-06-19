@@ -12,9 +12,9 @@ import io.swagger.v3.oas.models.servers.Server;
 @Configuration
 public class OpenAPIConfig {
 
-  private String devUrl = "http://localhost:8080";
+  private String devUrl = "http://localhost:9087";
 
-  private String prodUrl = "http://localhost:8080";
+  private String prodUrl = "http://localhost:90870";
 
   @Bean
   public OpenAPI myOpenAPI() {
