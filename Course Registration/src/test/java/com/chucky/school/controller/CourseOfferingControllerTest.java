@@ -59,11 +59,9 @@ public class CourseOfferingControllerTest {
 
     @Test
     public void testGetAllCourseOfferings() {
-        List<CourseOffering> courseOfferings = Arrays.asList(new CourseOffering(), new CourseOffering());
+        List<CourseOfferingDetailsDTO> courseOfferings = Arrays.asList(new CourseOfferingDetailsDTO(), new CourseOfferingDetailsDTO());
         when(courseOfferingService.getAllCoursOffering()).thenReturn(courseOfferings);
-
-        ResponseEntity<List<CourseOffering>> response = courseOfferingController.getAllCourseOfferings();
-
+        ResponseEntity<List<CourseOfferingDetailsDTO>> response = courseOfferingController.getAllCourseOfferings();
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(courseOfferings, response.getBody());
     }

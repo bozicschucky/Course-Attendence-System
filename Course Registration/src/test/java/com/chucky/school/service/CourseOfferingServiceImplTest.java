@@ -70,29 +70,15 @@ public class CourseOfferingServiceImplTest {
 
     @Test
     void testGetAllCourseOfferings() {
-        List<CourseOffering> courseOfferings = List.of(new CourseOffering(), new CourseOffering());
-        when(courseOfferingRepository.findAll()).thenReturn(courseOfferings);
+        List<CourseOfferingDetailsDTO> courseOfferings = List.of(new CourseOfferingDetailsDTO(), new CourseOfferingDetailsDTO());
+        when(courseOfferingRepository.getCourseOfferingDetails()).thenReturn(courseOfferings);
 
-        List<CourseOffering> result = courseOfferingService.getAllCoursOffering();
+        List<CourseOfferingDetailsDTO> result = courseOfferingService.getAllCoursOffering();
 
         assertNotNull(result);
         assertEquals(courseOfferings.size(), result.size());
     }
 
-//    @Test
-//    void testUpdateCourseOffering() {
-//        long courseOfferingId = 1L;
-//        CourseOffering existingCourseOffering = new CourseOffering();
-//        CourseOffering newCourseOffering = new CourseOffering();
-//
-//        when(courseOfferingRepository.getReferenceById(courseOfferingId)).thenReturn(existingCourseOffering);
-//        when(courseOfferingRepository.save(any(CourseOffering.class))).thenReturn(existingCourseOffering);
-//
-//        CourseOfferingDetailsDTO result = courseOfferingService.updateCourseOffering(courseOfferingId, newCourseOffering);
-//
-//        assertNotNull(result);
-//        verify(courseOfferingRepository, times(1)).save(existingCourseOffering);
-//    }
 
     @Test
     void testDeleteCourseOffering() {

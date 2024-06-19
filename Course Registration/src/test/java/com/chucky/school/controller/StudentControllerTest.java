@@ -117,6 +117,20 @@ class StudentControllerTest {
         mockMvc.perform(delete("/sys-admin/students/1"))
                 .andExpect(status().isNoContent());
     }
+    @Test
+    void testGetStudentByStudentIdForAdmin() throws Exception {
+        StudentDTO studentDTO = new StudentDTO();
+        studentDTO.setStudentId(145L);
+        studentDTO.setEntry("2024-01-01");
+        studentDTO.setAlternateId(101L);
+        studentDTO.setApplicantId(201L);
+
+        when(studentService.getStudentBystudentID(145L)).thenReturn(java.util.Optional.of(studentDTO));
+
+        mockMvc.perform(get("/admin-view/students/145"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.studentId", is(145)));
+    }
 }
 
 
