@@ -4,9 +4,8 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
+
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.checkerframework.common.aliasing.qual.Unique;
 
@@ -22,11 +21,12 @@ public class Student extends Person {
   private long alternateId;
   private long applicantId;
   @ManyToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name="facultyAdvisorId")
+  @JoinColumn(name = "facultyAdvisorId")
   private Faculty facultyAdvisorId;
 
-
-  public Student(String firstName, String lastName, GenderType genderType, String emailAddress, LocalDate dateOfBirth, AuditData createdRecord, String username, String password, long studentId, String entry, long alternateId, long applicantId, Faculty facultyAdvisorId) {
+  public Student(String firstName, String lastName, GenderType genderType, String emailAddress, LocalDate dateOfBirth,
+      AuditData createdRecord, String username, String password, long studentId, String entry, long alternateId,
+      long applicantId, Faculty facultyAdvisorId) {
     super(firstName, lastName, genderType, emailAddress, dateOfBirth, createdRecord, username, password);
     this.studentId = studentId;
     Entry = entry;
@@ -34,6 +34,8 @@ public class Student extends Person {
     this.applicantId = applicantId;
     this.facultyAdvisorId = facultyAdvisorId;
   }
-  public Student () {}
+
+  public Student() {
+  }
 
 }

@@ -1,9 +1,12 @@
 package com.chucky.school.domain;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,6 +31,9 @@ public class Course {
   private String courseCode;
   private String courseDescription;
   private String department;
+  @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+  @Column(name = "session_id")
+  List<Session> currentSession = new ArrayList<>();
   @Embedded
   private AuditData createdRecord;
 
@@ -55,4 +61,22 @@ public class Course {
 
   @OneToMany(mappedBy = "course")
   private List<CourseOffering> courseOfferings;
+
+  public void addPrerequisite(Course course) {
+    prerequisites.add(course);
+    course.courses.add(this);
+  }
+
+  public void removePrerequisite(Course course) {
+    prerequisites.remove(course);
+    course.courses.remove(this);
+  }
+
+  public void addSession(Session session) {
+    currentSession.add(session);
+  }
+
+  public List<Session> getSessions() {
+    return currentSession;
+  }
 }

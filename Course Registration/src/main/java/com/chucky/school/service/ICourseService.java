@@ -7,7 +7,7 @@ import com.chucky.school.domain.AuditData;
 
 public interface ICourseService {
   public Course createCourse(long credits, String courseName, String courseCode, String courseDescription,
-      String department, AuditData createdRecord);
+      String department, AuditData createdRecord, String sessionTitle, String sessionType);
 
   public Course readCourse(String courseName);
 

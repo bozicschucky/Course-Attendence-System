@@ -7,6 +7,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Id;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -27,5 +30,6 @@ public class CourseOffering {
   private Course course;
   @ManyToOne
   private Faculty faculty;
+
 
 }
