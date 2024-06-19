@@ -1,4 +1,4 @@
-package com.chucky.school.DTO;
+package com.chucky.school.dto;
 
 import com.chucky.school.domain.CourseOffering;
 import lombok.AllArgsConstructor;
