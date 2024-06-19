@@ -2,6 +2,7 @@ package com.chucky.school.service;
 
 import com.chucky.school.DTO.CourseOfferingDetailsDTO;
 import com.chucky.school.domain.AuditData;
+import com.chucky.school.domain.Course;
 import com.chucky.school.domain.CourseOffering;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,7 @@ public interface CourseOfferingService {
       void deleteCourseOffering(long id);
         CourseOfferingDetailsDTO getCourseOfferingByID(long courseId);
       List<CourseOfferingDetailsDTO> getCourseOfferingDetails();
+      List<Course> getCourseOfferingsInSessionOn(LocalDate date);
 
 
 }

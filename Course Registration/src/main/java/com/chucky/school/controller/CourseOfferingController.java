@@ -2,10 +2,12 @@ package com.chucky.school.controller;
 
 import com.chucky.school.DTO.CourseOfferingDetailsDTO;
 import com.chucky.school.domain.AuditData;
+import com.chucky.school.domain.Course;
 import com.chucky.school.domain.CourseOffering;
 import com.chucky.school.service.CourseOfferingService;
 import exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -42,9 +44,15 @@ public class CourseOfferingController {
         }
         return ResponseEntity.ok(courseOffering);
     }
+
+    @GetMapping("sys-admin/courseOfferings/details")
+    public List<CourseOfferingDetailsDTO> getCourseOfferingDetails() {
+        return courseOfferingService.getCourseOfferingDetails();
+    }
+
     @GetMapping("sys-admin/course-offerings/all")
-    public ResponseEntity<List<CourseOfferingDetailsDTO>> getAllCourseOfferings() {
-        List<CourseOfferingDetailsDTO> courseOfferings = courseOfferingService.getAllCoursOffering();
+    public ResponseEntity<List<CourseOffering>> getAllCourseOfferings() {
+        List<CourseOffering> courseOfferings = courseOfferingService.getAllCoursOffering();
         return ResponseEntity.ok(courseOfferings);
     }
 
@@ -66,6 +74,20 @@ public class CourseOfferingController {
     public ResponseEntity<Void> deleteCourseOffering(@PathVariable long id) {
         courseOfferingService.deleteCourseOffering(id);
         return ResponseEntity.noContent().build();
+    }
+    @GetMapping("student-view/course-offerings/{courseOfferingid}")
+    public ResponseEntity<CourseOfferingDetailsDTO> getCourseOfferingByIdForStudent(@PathVariable long courseOfferingid) {
+        CourseOfferingDetailsDTO courseOffering = courseOfferingService.getCourseOfferingByID(courseOfferingid);
+        if (courseOffering == null) {
+            throw new ResourceNotFoundException("Course Offering not found with id " + courseOfferingid);
+        }
+        return ResponseEntity.ok(courseOffering);
+    }
+    @GetMapping("/admin-view/courseofferings")
+    public ResponseEntity<List<Course>> getCourseOfferingsInSessionOn(
+            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        List<Course> courses = courseOfferingService.getCourseOfferingsInSessionOn(date);
+        return ResponseEntity.ok(courses);
     }
 
 
