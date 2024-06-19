@@ -17,6 +17,8 @@ import org.mockito.Mock;
 
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -59,7 +61,7 @@ public class CourseOfferingServiceImplTest {
         when(facultyRepository.findFacultiesById(facultyId)).thenReturn(faculty);
 
         CourseOfferingDetailsDTO courseOffering = courseOfferingService.createCourseOffering(
-                "CS544-2024-06", 100, "V017", auditData, courseId, facultyId);
+                "CS544-2024-06", 100, "V017", auditData, courseId, facultyId, LocalDate.of(2024,01, 01), LocalDate.of(2024,02, 01));
 
         assertNotNull(courseOffering);
         assertEquals(course.getId(), courseOffering.getCourseId());
