@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Tag(name = "Course Offering", description = "The Course Offering API")
@@ -26,8 +27,10 @@ public class CourseOfferingController {
             @RequestParam String room,
             @RequestParam String createdBy,
             @RequestParam long courseId,
+            @RequestParam LocalDate startDate,
+            @RequestParam LocalDate endDate,
             @RequestParam long facultyId) {
-        CourseOfferingDetailsDTO courseOffering = courseOfferingService.createCourseOffering(courseOfferingType, capacity, room, new AuditData(createdBy), courseId, facultyId);
+        CourseOfferingDetailsDTO courseOffering = courseOfferingService.createCourseOffering(courseOfferingType, capacity, room, new AuditData(createdBy), courseId, facultyId, startDate, endDate);
         return ResponseEntity.ok(courseOffering);
     }
 
@@ -53,8 +56,10 @@ public class CourseOfferingController {
                                                                          @RequestParam String room,
                                                                          @RequestParam String updatedBy,
                                                                          @RequestParam long courseId,
+                                                                         @RequestParam LocalDate startDate,
+                                                                         @RequestParam LocalDate endDate,
                                                                          @RequestParam long facultyId) {
-        CourseOfferingDetailsDTO updatedCourseOffering = courseOfferingService.updateCourseOffering(id, courseOfferingType, capacity, room, updatedBy, courseId, facultyId);
+        CourseOfferingDetailsDTO updatedCourseOffering = courseOfferingService.updateCourseOffering(id, courseOfferingType, capacity, room, updatedBy, courseId, facultyId, startDate, endDate);
         return ResponseEntity.ok(updatedCourseOffering);
     }
     @DeleteMapping("sys-admin/course-offerings/remove/{id}")
