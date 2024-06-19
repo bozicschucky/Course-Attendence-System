@@ -9,6 +9,7 @@ import com.chucky.school.repository.CourseRepository;
 import lombok.Getter;
 import lombok.Setter;
 
+import com.chucky.school.domain.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,8 +23,13 @@ public class CourseService implements ICourseService {
 
   public Course createCourse(long credits, String courseName, String courseCode, String courseDescription,
       String department,
-      AuditData createdRecord) {
+      AuditData createdRecord, String sessionTitle, String sessionType) {
     Course course = new Course(credits, courseName, courseCode, courseDescription, department, createdRecord);
+
+    Session session = new Session(
+        sessionTitle,
+        sessionType);
+    course.addSession(session);
     courseRepository.save(course);
     return  course;
   }

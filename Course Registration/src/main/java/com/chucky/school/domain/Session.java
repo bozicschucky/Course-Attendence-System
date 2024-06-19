@@ -8,10 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,7 +17,7 @@ import java.util.List;
 public class Session {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 
@@ -28,18 +25,21 @@ public class Session {
     private String sessionTitle;
     private LocalTime startTime;
     private LocalTime endTime;
-
-    @OneToMany( cascade = CascadeType.ALL)
-    private List<AttendanceRecord> attendanceRecords = new ArrayList<>();
+    private String sessionType;
 
 
-    public void addAttendanceRecord(AttendanceRecord attendanceRecord) {
-        attendanceRecords.add(attendanceRecord);
+    public Session( String sessionTitle, String sessionType) {
+        this.sessionDate = LocalDate.now();
+        this.sessionTitle = sessionTitle;
+        this.sessionType = sessionType;
 
+        if (this.sessionType.toLowerCase() == "morning") {
+            this.startTime = LocalTime.of(10, 0);
+            this.endTime = LocalTime.of(12, 30);
+        } else if (this.sessionType.toLowerCase() == "afternoon") {
+            this.startTime = LocalTime.of(13, 30);
+            this.endTime = LocalTime.of(16, 30);
+        }
     }
 
-
-    public void removeAttendanceRecord(AttendanceRecord attendanceRecord) {
-        attendanceRecords.remove(attendanceRecord);
-    }
 }

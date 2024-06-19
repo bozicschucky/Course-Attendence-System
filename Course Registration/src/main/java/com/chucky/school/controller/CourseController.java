@@ -31,13 +31,19 @@ public class CourseController {
       @RequestParam(value = "courseCode", required = true) String courseCode,
       @RequestParam(value = "courseDescription", required = true) String courseDescription,
       @RequestParam(value = "department", required = true) String department,
-      @RequestParam(value = "createdBy", required = true) String createdBy) {
+      @RequestParam(value = "createdBy", required = true) String createdBy,
+      @RequestParam(value = "sessionTitle", required = false) String sessionTitle,
+      @RequestParam(value = "sessionType", required = false) String sessionType) {
 
     Course course = courseService.createCourse(credits, courseName, courseCode, courseDescription, department,
-        new AuditData(createdBy));
+        new AuditData(createdBy), sessionTitle, sessionType);
     return ResponseEntity.ok().body(Map.of(
         "message", "Course created successfully",
-        "course", course));
+        "courseName", course.getCourseName(),
+        "courseCode", course.getCourseCode(),
+        "courseDescription", course.getCourseDescription(),
+        "department", course.getDepartment(),
+        "Sessions", course.getSessions()));
   }
 
   @GetMapping("/sys-admin/courses")

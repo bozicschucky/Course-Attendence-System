@@ -1,9 +1,6 @@
 package com.chucky.school.domain;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collection;
-
 import jakarta.persistence.*;
 
 import lombok.*;
@@ -28,7 +25,8 @@ public class AttendanceRecord {
   @JoinColumn(name = "location_id")
   Location location;
 
-  public AttendanceRecord(LocalDateTime scanDateTime, Student student, DayTime dayTime, Location location) {
+  public AttendanceRecord(LocalDateTime scanDateTime, Student student, DayTime dayTime, Location location
+      ) {
     this.scanDateTime = scanDateTime;
     this.student = student;
     this.dayTime = dayTime;
