@@ -72,7 +72,6 @@ public class CourseOfferingServiceImplTest {
     void testGetAllCourseOfferings() {
         List<CourseOfferingDetailsDTO> courseOfferings = List.of(new CourseOfferingDetailsDTO(), new CourseOfferingDetailsDTO());
         when(courseOfferingRepository.getCourseOfferingDetails()).thenReturn(courseOfferings);
-
         List<CourseOfferingDetailsDTO> result = courseOfferingService.getAllCoursOffering();
 
         assertNotNull(result);

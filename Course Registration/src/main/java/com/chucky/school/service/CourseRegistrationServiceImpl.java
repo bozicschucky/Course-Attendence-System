@@ -34,12 +34,13 @@ public class CourseRegistrationServiceImpl implements CourseRegistrationService 
         if (courseOffering == null) {
             throw new ResourceNotFoundException("Unable to find course offering with id " + courseOfferingId);
         }
+
         if (courseRegistrationRepository.countByCourseOfferingIdAndStudentId(courseOfferingId, studentId) > 0) {
             throw new ResourceNotFoundException.DuplicateRegistrationException("Course registration already exists");
         }
         CourseRegistration courseRegistration = CourseRegistration.builder()
-                .courseOfferingId(courseOfferingId)
-                .studentId(studentId).build();
+                .courseOfferingId(courseOffering)
+                .studentId(student.get()).build();
         CourseRegistration courseRegistrationResponse = courseRegistrationRepository.save(courseRegistration);
 
         return courseRegistrationResponse;
@@ -53,17 +54,17 @@ public class CourseRegistrationServiceImpl implements CourseRegistrationService 
 
     @Override
     public CourseRegistration updateRegistration(long registrationId,long courseOfferingId, long studentId,char grade) {
-       studentRepository.findBystudentID(studentId).
+       Student student=studentRepository.findBystudentID(studentId).
         orElseThrow(() -> new ResourceNotFoundException("Unable to find the Student with provided studentId"+studentId));
 
-   courseOfferingRepository.findById(courseOfferingId)
+  CourseOffering courseOffering= courseOfferingRepository.findById(courseOfferingId)
                 .orElseThrow(() -> new ResourceNotFoundException("Unable to find the CourseOffering with provided courseOfferingId"+courseOfferingId));
 
         CourseRegistration findcourseRegistration= courseRegistrationRepository.findById(registrationId).
            orElseThrow(() -> new ResourceNotFoundException("Unable to find the CourseRegistration with provided registrationId"+ registrationId));
         findcourseRegistration.setGrade(grade);
-        findcourseRegistration.setStudentId(studentId);
-        findcourseRegistration.setCourseOfferingId(courseOfferingId);
+        findcourseRegistration.setStudentId(student);
+        findcourseRegistration.setCourseOfferingId(courseOffering);
         return courseRegistrationRepository.save(findcourseRegistration);
     }
 

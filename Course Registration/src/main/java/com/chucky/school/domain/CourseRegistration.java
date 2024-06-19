@@ -1,9 +1,6 @@
 package com.chucky.school.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.OrderBy;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -16,9 +13,11 @@ public class CourseRegistration {
     @Id
     @GeneratedValue
     private long id;
-    private long courseOfferingId;
+    @ManyToOne
+    private CourseOffering courseOfferingId;
     @OrderBy("studentId ASC")
-    private long studentId;
+    @ManyToOne
+    private Student studentId;
     private char grade;
 
 }
