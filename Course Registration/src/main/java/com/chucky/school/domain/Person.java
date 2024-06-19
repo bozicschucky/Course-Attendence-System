@@ -12,10 +12,7 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.SecondaryTable;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
@@ -24,6 +21,7 @@ import lombok.Setter;
 @Entity
 @SecondaryTable(name = "PersonAccount", pkJoinColumns = @PrimaryKeyJoinColumn(name = "id"))
 @Inheritance(strategy = InheritanceType.JOINED)
+@EqualsAndHashCode
 public abstract class Person {
   @GeneratedValue(strategy = GenerationType.AUTO)
   @Id

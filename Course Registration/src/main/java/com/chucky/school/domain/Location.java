@@ -8,6 +8,7 @@ import lombok.*;
 @Getter
 @NoArgsConstructor
 @ToString
+
 public class Location {
   @Id
   @GeneratedValue

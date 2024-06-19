@@ -1,16 +1,15 @@
 package com.chucky.school.service;
 
 import com.chucky.school.DTO.LocationDTO;
-import com.chucky.school.domain.AttendanceRecord;
-import com.chucky.school.domain.Location;
-import com.chucky.school.domain.Session;
-import com.chucky.school.domain.Student;
+import com.chucky.school.DTO.SessionDTO;
+import com.chucky.school.domain.*;
 import com.chucky.school.DTO.AttendanceRecordDTO;
 import com.chucky.school.repository.AttendanceRecordRepository;
 import com.chucky.school.repository.LocationRepository;
 import com.chucky.school.repository.SessionRepository;
 import com.chucky.school.repository.StudentRepository;
 import com.chucky.school.service.AttendanceService;
+import exception.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,61 +37,134 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Autowired
     private LocationRepository locationRepository;
-    @Override
-    public AttendanceRecordDTO createAttendanceRecord(Long studentId, Long locationId) {
-        LocalDateTime scanDateTime = LocalDateTime.now();
-        LocalDate sessionDate = scanDateTime.toLocalDate();
 
-        LocalDateTime startOfTheDay = scanDateTime.toLocalDate().atStartOfDay();
-        LocalDateTime endOfTheDay = scanDateTime.toLocalDate().atTime(LocalTime.MAX);
+    public AttendanceRecordDTO createAttendanceRecord(long sessionId, long studentId, long locationId) {
 
-        Session session = sessionRepository.findBySessionDate(sessionDate)
-                .orElseGet(() -> {
-                    Session newSession = new Session();
-                    newSession.setSessionDate(sessionDate);
-                    return sessionRepository.save(newSession);
-                });
+        LocalDateTime scanDateAndTime = LocalDateTime.now();
+        LocalTime scanDateTime = scanDateAndTime.toLocalTime();
+        LocalDate sessionDate = scanDateAndTime.toLocalDate();
 
-//        Optional<AttendanceRecord> existingRecord = attendanceRecordRepository.findExistingRecord(studentId, locationId, startOfTheDay, endOfTheDay);
-//        if (existingRecord.isPresent()) {
-//            throw new RuntimeException("Attendance record already exists");
-//        }
-        List<AttendanceRecord> existingRecords = attendanceRecordRepository.findBySession_SessionDateAndStudent_Id(sessionDate, studentId);
-        if (!existingRecords.isEmpty()) {
-            throw new RuntimeException("Duplicate attendance record for student in this session");
-        }
-        Optional<Student> student = studentRepository.findByStudentId(studentId);
-
+        Optional<Student> student = studentRepository.findById(studentId);
 
         if (student.isEmpty()) {
-            throw new EntityNotFoundException("Student with ID " + studentId + " not found");
+            throw new ResourceNotFoundException("Student with ID " + studentId + " not found");
         }
 
         Optional<Location> location = locationRepository.findById(locationId);
-
         if (location.isEmpty()) {
-            throw new EntityNotFoundException("Location with ID " + locationId + " not found");
+            throw new ResourceNotFoundException("Location with ID " + locationId + " not found");
         }
 
-        Location location1 = location.get();
-        AttendanceRecord attendanceRecordOne = new AttendanceRecord(scanDateTime, student.get(), location1,session);
+        Session session = sessionRepository.findById(sessionId).orElseThrow(() ->
+                new ResourceNotFoundException("Session with ID " + sessionId + " not found")
+        );
 
-       // attendanceRecordOne.setSession(session);
 
-        attendanceRecordRepository.save(attendanceRecordOne);
 
-        return buildAttendanceRecordDTO(attendanceRecordOne);
+        DayTime dayTime;
+        if (scanDateTime.isAfter(LocalTime.of(6, 0)) && scanDateTime.isBefore(LocalTime.of(12, 30))) {
+            dayTime = DayTime.MORNING;
+        } else if (scanDateTime.isAfter(LocalTime.of(13, 30)) && scanDateTime.isBefore(LocalTime.of(15, 30))) {
+            dayTime = DayTime.AFTERNOON;
+        } else {
+            throw new ResourceNotFoundException("Attendance record cannot be created for this time");
+        }
 
+        for (AttendanceRecord attendanceRecord : session.getAttendanceRecords()) {
+            if (attendanceRecord.getStudent().getId() == (studentId) &&
+                    attendanceRecord.getLocation().getId()== (locationId) &&
+                    attendanceRecord.getDayTime() == dayTime) {
+                throw new ResourceNotFoundException("Duplicate attendance record for student in this session");
+            }
+        }
+
+        AttendanceRecord attendanceRecord = new AttendanceRecord(scanDateAndTime, student.get(),dayTime, location.get());
+        attendanceRecordRepository.save(attendanceRecord);
+        session.addAttendanceRecord(attendanceRecord);
+        sessionRepository.save(session);
+
+        return buildAttendanceRecordDTO(attendanceRecord);
+    }
+
+//    public AttendanceRecordDTO createAttendanceRecord(long sessionId,long studentId, long locationId) {
+//
+//        LocalDateTime scanDateAndTime = LocalDateTime.now();
+//        LocalTime scanDateTime = scanDateAndTime.toLocalTime();
+//        LocalDate sessionDate = scanDateAndTime.toLocalDate();
+//
+//        Optional<Student> student = studentRepository.findById(studentId);
+//
+//        if (student.isEmpty()) {
+//            throw new ResourceNotFoundException("Student with ID " + studentId + " not found");
+//        }
+//        Optional<Location> location = locationRepository.findById(locationId);
+//        if (location.isEmpty()) {
+//            throw new ResourceNotFoundException("Location with ID " + locationId + " not found");
+//        }
+//
+//        Session session = sessionRepository.findById(sessionId).get();
+//
+//        for(AttendanceRecord attendanceRecord : session.getAttendanceRecords()) {
+//            if(attendanceRecord.getStudent().getId() == studentId && attendanceRecord.getLocation().getId() == locationId && attendanceRecord.getDayTime() == DayTime.MORNING){
+//
+//            }
+//        }
+//
+//        if (scanDateTime.isAfter(LocalTime.of(6, 0)) && scanDateTime.isBefore(LocalTime.of(12, 30))) {
+//
+//            for (AttendanceRecord attendanceRecord : session.getAttendanceRecords()) {
+//                if (attendanceRecord.getStudent().getId() == studentId && attendanceRecord.getLocation().getId() == locationId && attendanceRecord.getDayTime() == DayTime.MORNING) {
+//                    throw new ResourceNotFoundException("Duplicate attendance record for student in this session");
+//                }
+//            }
+//            AttendanceRecord attendanceRecordOne = new AttendanceRecord(scanDateAndTime, student.get(), DayTime.MORNING, location.get());
+//
+//            attendanceRecordRepository.save(attendanceRecordOne);
+//            session.addAttendanceRecord(attendanceRecordOne);
+//            sessionRepository.save(session);
+//            return buildAttendanceRecordDTO(attendanceRecordOne);
+//        } else if (scanDateTime.isAfter(LocalTime.of(1, 30)) && scanDateTime.isBefore(LocalTime.of(3, 30))) {
+//
+//            for (AttendanceRecord attendanceRecord : session.getAttendanceRecords()) {
+//                if (attendanceRecord.getStudent().getStudentId() == studentId && attendanceRecord.getLocation().getId() == locationId && attendanceRecord.getDayTime() == DayTime.AFTERNOON) {
+//                    throw new ResourceNotFoundException("Duplicate attendance record for student in this session");
+//                }
+//            }
+//
+//            AttendanceRecord attendanceRecordOne = new AttendanceRecord(scanDateAndTime, student.get(), DayTime.AFTERNOON, location.get());
+//            attendanceRecordRepository.save(attendanceRecordOne);
+//            session.addAttendanceRecord(attendanceRecordOne);
+//            sessionRepository.save(session);
+//            return buildAttendanceRecordDTO(attendanceRecordOne);
+//        } else {
+//            throw new ResourceNotFoundException("Attendance record cannot be created for this time");
+//        }
+//
+//
+//    }
+
+
+
+
+    public Collection<SessionDTO> getAllSessions() {
+        Collection<SessionDTO> sessions = new ArrayList<>();
+        for (Session session : sessionRepository.findAll()) {
+            sessions.add(buildSessionDTO(session));
+        }
+        return sessions;
     }
 
 
+
+
+
     @Override
-    public AttendanceRecordDTO getAttendance(Long id) {
-        Optional<AttendanceRecord> attendanceRecord1 = attendanceRecordRepository.findById(id);
-        if (attendanceRecord1.isEmpty()) {
-            throw new EntityNotFoundException("Attendance Record with ID " + id + " not found");
+    public AttendanceRecordDTO getAttendance(long id) {
+        Optional<AttendanceRecord> attendanceRecord = attendanceRecordRepository.findById(id);
+        if (attendanceRecord.isEmpty()) {
+            throw new ResourceNotFoundException("Attendance Record with ID " + id + " not found");
         }
-        AttendanceRecord attendanceRecord2 = attendanceRecord1.get();
+        AttendanceRecord attendanceRecord2 = attendanceRecord.get();
         return buildAttendanceRecordDTO(attendanceRecord2);
     }
 
@@ -103,12 +175,6 @@ public class AttendanceServiceImpl implements AttendanceService {
         for(AttendanceRecord attendanceRecord : attendanceRecordRepository.findAll()){
             AttendanceRecordDTO attendanceRecordDTO = buildAttendanceRecordDTO(attendanceRecord);
             attendanceRecords.add(attendanceRecordDTO);
-//            attendanceRecords.add(new AttendanceRecordDTO(
-//                    attendanceRecord.getId(),
-//                    attendanceRecord.getStudent().getStudentId(),
-//                    attendanceRecord.getLocation().getLocationType().getType()
-//            ));
-
         }
 
 
@@ -119,32 +185,33 @@ public class AttendanceServiceImpl implements AttendanceService {
     public void deleteAttendanceRecord(long id) {
         Optional<AttendanceRecord> attendanceRecord = attendanceRecordRepository.findById(id);
         if(attendanceRecord.isEmpty()) {
-            throw new EntityNotFoundException("Attendance Record with ID " + id + " not found");
+            throw new ResourceNotFoundException("Attendance Record with ID " + id + " not found");
         }
 
         attendanceRecordRepository.deleteById(id);
     }
 
     @Override
-    public AttendanceRecordDTO updateAttendanceRecord(long id, Long studentId, Long locationId) {
+    public AttendanceRecordDTO updateAttendanceRecord(long id, long studentId, long locationId) {
 
-        Optional<AttendanceRecord> attendanceRecord1 = attendanceRecordRepository.findById(id);
-        if(attendanceRecord1.isEmpty()) {
-            throw new EntityNotFoundException("Attendance Record with ID " + id + " not found");
+        Optional<AttendanceRecord> attendanceRecord = attendanceRecordRepository.findById(id);
+        if(attendanceRecord.isEmpty()) {
+            throw new ResourceNotFoundException("Attendance Record with ID " + id + " not found");
         }
         Optional<Student> student = studentRepository.findByStudentId(studentId);
 
         if (student.isEmpty()) {
-            throw new EntityNotFoundException("Student with ID " + studentId + " not found");
+            throw new ResourceNotFoundException("Student with ID " + studentId + " not found");
         }
 
         Optional<Location> location = locationRepository.findById(locationId);
 
         if (location.isEmpty()) {
-            throw new EntityNotFoundException("Location with ID " + locationId + " not found");
+            throw new ResourceNotFoundException("Location with ID " + locationId + " not found");
         }
 
-        AttendanceRecord updatedAttendanceRecord = attendanceRecord1.get();
+        AttendanceRecord updatedAttendanceRecord = attendanceRecord.get();
+
            updatedAttendanceRecord.setStudent(student.get());
            updatedAttendanceRecord.setLocation(location.get());
            updatedAttendanceRecord.setScanDateTime(LocalDateTime.now());
@@ -158,17 +225,34 @@ public class AttendanceServiceImpl implements AttendanceService {
         Location location2 = attendanceRecord.getLocation();
         LocationDTO locationDTO = new LocationDTO(
                 location2.getTypeId(),
-                location2.getCapacity(),
                 location2.getName(),
                 location2.getLocationType().getType()
         );
 
         return new AttendanceRecordDTO(
                 attendanceRecord.getId(),
+                attendanceRecord.getScanDateTime(),
                 attendanceRecord.getStudent().getStudentId(),
                 attendanceRecord.getStudent().getFirstName(),
                 attendanceRecord.getStudent().getLastName(),
                 locationDTO
+        );
+    }
+
+    private SessionDTO buildSessionDTO(Session session) {
+         String status = null;
+//        if (session.getSessionEndDate().isBefore(LocalDate.now())) {
+//            status = "Ended";
+//        }else {
+//            status = "Open";
+//        }
+        return new SessionDTO(
+                session.getId(),
+                session.getSessionTitle(),
+                session.getSessionDate(),
+                session.getStartTime(),
+                session.getEndTime(), status
+
         );
     }
 
