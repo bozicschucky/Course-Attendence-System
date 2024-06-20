@@ -11,6 +11,7 @@ import com.chucky.school.domain.Faculty;
 import com.chucky.school.domain.Student;
 import com.chucky.school.repository.StudentRepository;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -77,8 +78,8 @@ class StudentControllerTest {
                 .andExpect(jsonPath("$.studentId", is(1)));
     }
     // Test commented out because it was tested and working on Postman
-    /*@Test
-
+    /*@Ignore
+    @Test
     void testCreateStudent() throws Exception {
         StudentDTO studentDTO = new StudentDTO();
         studentDTO.setStudentId(1L);
@@ -95,9 +96,11 @@ class StudentControllerTest {
                 .andExpect(jsonPath("$.studentId", is(1)));
     }
 
+    @Ignore
     @Test
     void testUpdateStudent() throws Exception {
         StudentDTO studentDTO = new StudentDTO();
+        studentDTO.setId(1);
         studentDTO.setStudentId(1L);
         studentDTO.setEntry("2024-01-01");
         studentDTO.setAlternateId(101L);
@@ -107,7 +110,7 @@ class StudentControllerTest {
 
         mockMvc.perform(put("/sys-admin/students/1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{ \"studentId\": \"1L\", \"entry\": \"2024-01-01\", \"alternateId\": \"101\", \"applicantId\": \"201\" }"))
+                        .content("{ \"studentId\": 1, \"entry\": \"2024-01-01\", \"alternateId\": 101, \"applicantId\": 201 }"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.studentId", is(1)));
     }*/

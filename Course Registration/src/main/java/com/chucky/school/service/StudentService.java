@@ -27,7 +27,7 @@ public class StudentService {
 
     public StudentDTO createStudent(StudentDTO studentDTO) {
         Student student = convertToEntity(studentDTO);
-        Student savedStudent = studentRepository.saveStudent(student);
+        Student savedStudent = studentRepository.save(student);
         return convertToDTO(savedStudent);
     }
 
@@ -48,9 +48,7 @@ public class StudentService {
         student.setStudentId(studentDTO.getStudentId());
         student.setAlternateId(studentDTO.getAlternateId());
         student.setApplicantId(studentDTO.getApplicantId());
-
-
-        Student updatedStudent = studentRepository.saveStudent(student);
+        Student updatedStudent = studentRepository.save(student);
         return convertToDTO(updatedStudent);
     }
 
