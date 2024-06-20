@@ -115,5 +115,4 @@ public class CourseOfferingController {
         return ResponseEntity.ok(courses);
     }
 
-
 }
