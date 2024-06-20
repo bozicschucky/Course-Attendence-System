@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.chucky.school.dto.JwtAuthResponse;
-import com.chucky.school.dto.LoginDto;
+import com.chucky.school.DTO.JwtAuthResponse;
+import com.chucky.school.DTO.LoginDto;
 import com.chucky.school.service.AuthService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

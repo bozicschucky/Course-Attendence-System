@@ -36,11 +36,15 @@ public class SpringSecurityConfig {
 
     http.csrf(csrf -> csrf.disable())
         .authorizeHttpRequests((authorize) -> {
-          authorize.requestMatchers("/", "swagger-ui/index.html").permitAll();
+          authorize.requestMatchers("/").permitAll();
           authorize
               .requestMatchers(
                   "/v3/api-docs/**")
               .permitAll();
+          authorize.requestMatchers("/swagger-ui/**").permitAll();
+          authorize.requestMatchers("/swagger-ui.html").permitAll();
+          authorize.requestMatchers("/api/staff/get-staff").permitAll();
+          authorize.requestMatchers("/api/staff/**").permitAll();
           authorize.requestMatchers("/student-view/**").permitAll();
           authorize.requestMatchers("/api/auth/**").permitAll();
           authorize.requestMatchers("/sys-admin/**").hasAnyAuthority("SYS_ADMIN");

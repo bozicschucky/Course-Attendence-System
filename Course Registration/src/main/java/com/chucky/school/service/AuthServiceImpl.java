@@ -8,7 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import com.chucky.school.dto.LoginDto;
+import com.chucky.school.DTO.LoginDto;
 import com.chucky.school.security.JwtTokenProvider;
 
 import lombok.AllArgsConstructor;
@@ -31,9 +31,9 @@ public class AuthServiceImpl implements AuthService {
 
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
-    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+    SecurityContextHolder.getContext().setAuthentication(authentication);
 
-    String token = JwtTokenProvider.generateToken(userDetails);
+    String token = JwtTokenProvider.generateToken(authentication);
 
     return token;
   }
