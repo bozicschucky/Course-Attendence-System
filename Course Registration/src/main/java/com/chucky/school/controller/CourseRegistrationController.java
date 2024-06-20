@@ -1,6 +1,7 @@
 package com.chucky.school.controller;
 
 
+import com.chucky.school.DTO.CourseRegistrationDTO;
 import com.chucky.school.domain.CourseRegistration;
 import com.chucky.school.service.CourseRegistrationService;
 import exception.ResourceNotFoundException;
@@ -10,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class CourseRegistrationController {
@@ -20,33 +20,38 @@ public class CourseRegistrationController {
 
 
     @PostMapping("/sys-admin/registrations")
-    public ResponseEntity<CourseRegistration> createRegistration(
+    public ResponseEntity<CourseRegistrationDTO> createRegistration(
             @RequestParam long courseOfferingId,
             @RequestParam long studentId) {
-        CourseRegistration registration = courseRegistrationService.createRegistration(courseOfferingId, studentId);
-        return ResponseEntity.ok(registration);
+          courseRegistrationService.createRegistration(courseOfferingId, studentId);
+        return ResponseEntity.ok( CourseRegistrationDTO.builder().studentId(studentId)
+                .courseOfferingId(courseOfferingId)
+                .build());
     }
 
     @GetMapping("/sys-admin/registrations/{id}")
-    public ResponseEntity<CourseRegistration> getRegistrationById(@PathVariable long id) {
-        Optional<CourseRegistration> registration = courseRegistrationService.findRegistrationById(id);
-        return registration.map(ResponseEntity::ok)
-                .orElseThrow(() -> new ResourceNotFoundException("Registration not found with id " + id));
+    public CourseRegistrationDTO getRegistrationById(@PathVariable long id) {
+        CourseRegistrationDTO registration = courseRegistrationService.findRegistrationById(id);
+        return registration;
+
     }
 
     @PutMapping("/sys-admin/registrations/{registrationId}")
-    public ResponseEntity<CourseRegistration> updateRegistration(
+    public ResponseEntity<CourseRegistrationDTO> updateRegistration(
             @PathVariable long registrationId,
             @RequestParam long courseOfferingId,
             @RequestParam long studentId,
             @RequestParam char grade) {
-        CourseRegistration updatedRegistration = courseRegistrationService.updateRegistration(registrationId, courseOfferingId, studentId, grade);
-        return ResponseEntity.ok(updatedRegistration);
+          courseRegistrationService.updateRegistration(registrationId, courseOfferingId, studentId, grade);
+        return ResponseEntity.ok( CourseRegistrationDTO.builder()
+                .studentId(studentId)
+                .courseOfferingId(courseOfferingId)
+                .grade(grade).build());
     }
 
     @GetMapping("/sys-admin/registrations/all")
-    public ResponseEntity<List<CourseRegistration>> getAllRegistrations() {
-        List<CourseRegistration> registrations = courseRegistrationService.findAllRegistrations();
+    public ResponseEntity<List<CourseRegistrationDTO>> getAllRegistrations() {
+        List<CourseRegistrationDTO> registrations = courseRegistrationService.findAllRegistrations();
         return ResponseEntity.ok(registrations);
     }
 
@@ -54,5 +59,24 @@ public class CourseRegistrationController {
     public ResponseEntity<Void> deleteRegistration(@PathVariable long id) {
         courseRegistrationService.deleteRegistration(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("admin-view/courseList/course-offerings/{id}")
+    public ResponseEntity<List<Object[]>> getCourseOfferingByIdForAdmin(@PathVariable long id) {
+        List<Object[]> courseOfferingAll = courseRegistrationService.getAllFromCourseOffering(id);
+        if (courseOfferingAll == null) {
+            throw new ResourceNotFoundException("Course Offering not found with id " + id);
+        }
+        return ResponseEntity.ok(courseOfferingAll);
+    }
+
+
+    @GetMapping("student-view/student/course-offerings/{studentId}")
+    public ResponseEntity<List<Object[]>> get(@PathVariable long id) {
+        List<Object[]> courseOfferingAll = courseRegistrationService.getAllFromStudent(id);
+        if (courseOfferingAll == null) {
+            throw new ResourceNotFoundException("Course Offering not found with id " + id);
+        }
+        return ResponseEntity.ok(courseOfferingAll);
     }
 }
