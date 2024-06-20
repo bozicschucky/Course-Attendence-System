@@ -1,39 +1,37 @@
 package com.chucky.school.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import jakarta.persistence.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 public class AttendanceRecord {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
   private LocalDateTime scanDateTime;
-  @OneToOne(cascade = CascadeType.ALL)
+  @ManyToOne(cascade = CascadeType.ALL)
   public Student student;
 
-  @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  private DayTime dayTime;
+
+  @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinColumn(name = "location_id")
   Location location;
 
-  @ManyToOne
-  @JoinColumn(name = "session_id")
-  private Session session;
-
-  public AttendanceRecord(LocalDateTime scanDateTime, Student student, Location location, Session session) {
+  public AttendanceRecord(LocalDateTime scanDateTime, Student student, DayTime dayTime, Location location) {
     this.scanDateTime = scanDateTime;
     this.student = student;
+    this.dayTime = dayTime;
     this.location = location;
-    this.session = session;
   }
 }

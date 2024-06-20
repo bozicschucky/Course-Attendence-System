@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +25,21 @@ public class Session {
 
 
     private LocalDate sessionDate;
+    private String sessionTitle;
+    private LocalTime startTime;
+    private LocalTime endTime;
 
-    @OneToMany(mappedBy = "session", cascade = CascadeType.ALL)
+    @OneToMany( cascade = CascadeType.ALL)
     private List<AttendanceRecord> attendanceRecords = new ArrayList<>();
 
 
+    public void addAttendanceRecord(AttendanceRecord attendanceRecord) {
+        attendanceRecords.add(attendanceRecord);
 
+    }
+
+
+    public void removeAttendanceRecord(AttendanceRecord attendanceRecord) {
+        attendanceRecords.remove(attendanceRecord);
+    }
 }

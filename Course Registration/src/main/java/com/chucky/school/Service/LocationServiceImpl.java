@@ -32,6 +32,8 @@ public class LocationServiceImpl implements LocationService {
     private AttendanceRecordRepository attendanceRecordRepository;
 
 
+
+    //create location
     public Location createLocation(long typeId, long capacity, String name,String createby, String locationType) {
         AuditData createdRecord = new AuditData(createby);
         LocationType locationType1 = new LocationType(locationType, createdRecord);
@@ -42,6 +44,8 @@ public class LocationServiceImpl implements LocationService {
         return location;
     }
 
+    //get location by id
+
     public Location getLocation(long id) {
         Optional<Location> location =  LocationRepository.findById(id);
         if(location.isEmpty()){
@@ -50,8 +54,10 @@ public class LocationServiceImpl implements LocationService {
             return LocationRepository.findById(id).get();
     }
 
-    public Collection<Location> getAllLocations() {
 
+    //get all locations
+
+    public Collection<Location> getAllLocations() {
         return LocationRepository.findAll();
     }
 
@@ -67,6 +73,9 @@ public class LocationServiceImpl implements LocationService {
         }
             LocationRepository.deleteById(id);
     }
+
+
+    //update location by id
 
     public Location updateLocation(long id, Location locationDTO){
 

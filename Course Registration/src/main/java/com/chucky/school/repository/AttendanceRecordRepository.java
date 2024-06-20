@@ -15,10 +15,6 @@ import java.util.Optional;
 @Repository
 public interface AttendanceRecordRepository extends JpaRepository<AttendanceRecord, Long> {
 
-//    @Query("SELECT ar FROM AttendanceRecord ar WHERE ar.student.id = :studentId AND ar.location.id = :locationId AND ar.scanDateTime BETWEEN :startDateTime AND :endDateTime")
-//    Optional<AttendanceRecord> findExistingRecord(@Param("studentId") Long studentId, @Param("locationId") Long locationId, @Param("startDateTime") LocalDateTime startDateTime, @Param("endDateTime") LocalDateTime endDateTime);
-
-    List<AttendanceRecord> findBySession_SessionDateAndStudent_Id(LocalDate sessionDate, Long studentId);
-
+    void findByScanDateTime(LocalDateTime scanDateTime);
     Collection<AttendanceRecord> findAllByLocationId(long locationId);
 }
