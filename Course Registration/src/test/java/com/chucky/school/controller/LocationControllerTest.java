@@ -1,7 +1,5 @@
 package com.chucky.school.controller;
 
-import com.chucky.school.domain.Location;
-import com.chucky.school.service.LocationServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -14,6 +12,11 @@ import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
+
+
+import com.chucky.school.domain.Location;
+import com.chucky.school.service.LocationServiceImpl;
+
 
 public class LocationControllerTest {
 
@@ -82,13 +85,14 @@ public class LocationControllerTest {
     public void testUpdateLocation() {
         long id = 1L;
         Location location = new Location();
-        doNothing().when(locationService).updateLocation(id, location);
+        when(locationService.updateLocation(id, location)).thenReturn(location);
 
         ResponseEntity<?> responseEntity = locationController.updateLocation(id, location);
 
         assertEquals(200, responseEntity.getStatusCodeValue());
         assertEquals(location, responseEntity.getBody());
     }
+
 
     @Test
     public void testDeleteAllLocations() {
