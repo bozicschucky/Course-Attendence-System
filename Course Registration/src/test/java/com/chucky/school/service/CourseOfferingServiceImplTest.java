@@ -1,10 +1,10 @@
 package com.chucky.school.service;
 
+import com.chucky.school.DTO.CourseOfferingDetailsDTO;
 import com.chucky.school.domain.AuditData;
 import com.chucky.school.domain.Course;
 import com.chucky.school.domain.CourseOffering;
 import com.chucky.school.domain.Faculty;
-import com.chucky.school.dto.CourseOfferingDetailsDTO;
 import com.chucky.school.repository.CourseOfferingRepository;
 import com.chucky.school.repository.CourseRepository;
 import com.chucky.school.repository.FacultyRepository;

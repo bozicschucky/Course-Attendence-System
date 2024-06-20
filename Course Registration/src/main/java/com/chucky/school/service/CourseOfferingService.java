@@ -1,8 +1,8 @@
 package com.chucky.school.service;
 
+import com.chucky.school.DTO.CourseOfferingDetailsDTO;
 import com.chucky.school.domain.AuditData;
 import com.chucky.school.domain.CourseOffering;
-import com.chucky.school.dto.CourseOfferingDetailsDTO;
 
 import org.springframework.stereotype.Service;
 
