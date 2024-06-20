@@ -33,13 +33,22 @@ public class StudentService {
 
     public StudentDTO updateStudent(Long id, StudentDTO studentDTO) {
         Student student = studentRepository.findById(id).orElseThrow(() -> new RuntimeException("Student not found"));
+        student.setStudentId(studentDTO.getStudentId());
         student.setEntry(studentDTO.getEntry());
         student.setAlternateId(studentDTO.getAlternateId());
         student.setApplicantId(studentDTO.getApplicantId());
+        student.setFirstName(studentDTO.getFirstName());
+        student.setLastName(studentDTO.getLastName());
+        student.setEntry(studentDTO.getEntry());
+        student.setEmailAddress(studentDTO.getEmailAddress());
+        student.setDateOfBirth(studentDTO.getDateOfBirth());
+        student.setCreatedRecord(studentDTO.getCreatedRecord());
+        student.setUsername(studentDTO.getUsername());
+        student.setPassword(studentDTO.getPassword());
+        student.setStudentId(studentDTO.getStudentId());
+        student.setAlternateId(studentDTO.getAlternateId());
+        student.setApplicantId(studentDTO.getApplicantId());
 
-        //Faculty faculty = new Faculty();
-        //faculty.setFacultyAdvisorId(studentDTO.getFacultyAdvisorId());
-        //student.setFacultyAdvisorId(faculty);
 
         Student updatedStudent = studentRepository.save(student);
         return convertToDTO(updatedStudent);
@@ -51,6 +60,7 @@ public class StudentService {
 
     private StudentDTO convertToDTO(Student student) {
         StudentDTO studentDTO = new StudentDTO();
+        studentDTO.setId(student.getId());
         studentDTO.setStudentId(student.getStudentId());
         studentDTO.setEntry(student.getEntry());
         studentDTO.setAlternateId(student.getAlternateId());
@@ -67,17 +77,13 @@ public class StudentService {
         studentDTO.setEntry(student.getEntry());
         studentDTO.setAlternateId(student.getAlternateId());
         studentDTO.setApplicantId(student.getApplicantId());
-        //studentDTO.setFacultyAdvisor(student.getFacultyAdvisorId());
-
-
-
-        //studentDTO.setFacultyAdvisorId(student.getFacultyAdvisorId() != null ? student.getFacultyAdvisorId().getFacultyAdvisorId() : null);
+        studentDTO.setGenderType(student.getGenderType());
         return studentDTO;
     }
 
     private Student convertToEntity(StudentDTO studentDTO) {
         Student student = new Student();
-
+        student.setId(studentDTO.getId());
         student.setStudentId(studentDTO.getStudentId());
         student.setEntry(studentDTO.getEntry());
         student.setAlternateId(studentDTO.getAlternateId());
@@ -93,15 +99,8 @@ public class StudentService {
         student.setStudentId(studentDTO.getStudentId());
         student.setAlternateId(studentDTO.getAlternateId());
         student.setApplicantId(studentDTO.getApplicantId());
-        //student.setFacultyAdvisorId(studentDTO.getFacultyAdvisor());
+        student.setGenderType(studentDTO.getGenderType());
 
-        /*if (studentDTO.getFacultyAdvisorId() != null) {
-            Faculty faculty = new Faculty();
-            //faculty.setFacultyAdvisorId(studentDTO.getFacultyAdvisorId());
-            student.setFacultyAdvisorId(faculty);
-        } else {
-            student.setFacultyAdvisorId(null);
-        }*/
 
         return student;
     }

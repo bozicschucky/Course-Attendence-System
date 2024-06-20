@@ -3,7 +3,6 @@ package com.chucky.school.controller;
 import com.chucky.school.DTO.CourseOfferingDetailsDTO;
 import com.chucky.school.domain.AuditData;
 import com.chucky.school.domain.Course;
-import com.chucky.school.domain.CourseOffering;
 import com.chucky.school.service.CourseOfferingService;
 import exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +83,5 @@ public class CourseOfferingController {
         List<Course> courses = courseOfferingService.getCourseOfferingsInSessionOn(date);
         return ResponseEntity.ok(courses);
     }
-
 
 }
