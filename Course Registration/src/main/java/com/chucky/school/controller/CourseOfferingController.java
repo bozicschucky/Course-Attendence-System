@@ -4,10 +4,18 @@ import com.chucky.school.Adaptor.CourseOfferingDetailsDTO;
 import com.chucky.school.domain.AuditData;
 import com.chucky.school.domain.Course;
 import com.chucky.school.service.CourseOfferingService;
+import com.chucky.school.service.ExcelFileService1;
+
+import org.apache.poi.ss.usermodel.Workbook;
+import org.springframework.http.ResponseEntity;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+
+import java.io.ByteArrayOutputStream;
 import exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -20,6 +28,9 @@ public class CourseOfferingController {
 
     @Autowired
     private CourseOfferingService courseOfferingService;
+
+    @Autowired
+    private ExcelFileService1 excelFileService;
 
     @PostMapping("sys-admin/course-offerings")
     public ResponseEntity<CourseOfferingDetailsDTO> createCourseOffering(
@@ -50,6 +61,26 @@ public class CourseOfferingController {
         return ResponseEntity.ok(courseOfferings);
     }
 
+    @GetMapping(value = "sys-admin/course-offerings/{id}/attendance", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public ResponseEntity<ByteArrayResource> getCourseOfferingAttendance(@PathVariable long id) throws Exception {
+        List<CourseOfferingDetailsDTO> courseOfferings = courseOfferingService.getAllCoursOffering();
+
+        Workbook workbook = excelFileService.createExcelFile(courseOfferings);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        workbook.write(outputStream);
+        workbook.close();
+
+        ByteArrayResource resource = new ByteArrayResource(outputStream.toByteArray());
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=course_offerings.xlsx");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .contentLength(resource.contentLength())
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(resource);
+    }
 
     @PutMapping("sys-admin/course-offerings/{id}")
     public ResponseEntity<CourseOfferingDetailsDTO> updateCourseOffering(@PathVariable long id,
