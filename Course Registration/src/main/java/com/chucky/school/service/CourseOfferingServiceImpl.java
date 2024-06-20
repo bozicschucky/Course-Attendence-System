@@ -1,10 +1,7 @@
 package com.chucky.school.service;
 
 import com.chucky.school.Adaptor.CourseOfferingDetailsDTO;
-import com.chucky.school.domain.AuditData;
-import com.chucky.school.domain.Course;
-import com.chucky.school.domain.CourseOffering;
-import com.chucky.school.domain.Faculty;
+import com.chucky.school.domain.*;
 import com.chucky.school.repository.CourseOfferingRepository;
 import com.chucky.school.repository.CourseRepository;
 import com.chucky.school.repository.FacultyRepository;
@@ -15,7 +12,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CourseOfferingServiceImpl implements CourseOfferingService {
@@ -126,5 +125,12 @@ public class CourseOfferingServiceImpl implements CourseOfferingService {
         return  courses;
     }
 
+    public Collection<Session> getAllSessions(long id) {
+        Optional<CourseOffering> courseOfferings = courseOfferingRepository.findById(id);
+        if (courseOfferings.isPresent()) {
+            return courseOfferings.get().getSession();
+        }
+        return null;
+    }
 
 }

@@ -1,7 +1,7 @@
 package com.chucky.school.service;
 
-import com.chucky.school.DTO.AttendanceRecordDTO;
-import com.chucky.school.DTO.LocationDTO;
+import com.chucky.school.Adaptor.AttendanceRecordDTO;
+import com.chucky.school.Adaptor.LocationDTO;
 import com.chucky.school.domain.AttendanceRecord;
 import com.chucky.school.domain.Location;
 import com.chucky.school.domain.Student;
@@ -18,9 +18,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class AttendanceServiceImplm implements AttendanceService{

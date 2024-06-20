@@ -1,9 +1,8 @@
 package com.chucky.school.controller;
 
-import com.chucky.school.DTO.AttendanceRecordDTO;
+import com.chucky.school.Adaptor.AttendanceRecordDTO;
 import com.chucky.school.domain.AttendanceRecord;
 import com.chucky.school.service.AttendanceServiceImplm;
-import exception.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -16,7 +15,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.any;

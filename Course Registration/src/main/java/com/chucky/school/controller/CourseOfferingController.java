@@ -1,8 +1,10 @@
 package com.chucky.school.controller;
 
 import com.chucky.school.Adaptor.CourseOfferingDetailsDTO;
+import com.chucky.school.Adaptor.SessionDTO;
 import com.chucky.school.domain.AuditData;
 import com.chucky.school.domain.Course;
+import com.chucky.school.domain.Session;
 import com.chucky.school.service.CourseOfferingService;
 import exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Tag(name = "Course Offering", description = "The Course Offering API")
@@ -48,6 +52,20 @@ public class CourseOfferingController {
     public ResponseEntity<List<CourseOfferingDetailsDTO>> getAllCourseOfferings() {
         List<CourseOfferingDetailsDTO> courseOfferings = courseOfferingService.getAllCoursOffering();
         return ResponseEntity.ok(courseOfferings);
+    }
+
+    @GetMapping("student-view/course-offerings/{Offeringid}/attendance")
+    public ResponseEntity<?> getAllSessions(long id){
+        Collection<Session> sessions = courseOfferingService.getAllSessions(id);
+        Collection<SessionDTO> sessionDTO = new ArrayList<>();
+        SessionDTO sessionDTO1 = new SessionDTO();
+        for(Session session : sessions){
+            sessionDTO1.setId(session.getId());
+            sessionDTO1.setDate(session.getSessionDate());
+            sessionDTO1.setSessionTitle(session.getSessionTitle());
+            sessionDTO.add(sessionDTO1);
+        }
+        return ResponseEntity.ok(sessionDTO);
     }
 
 

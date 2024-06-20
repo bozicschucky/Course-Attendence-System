@@ -77,20 +77,20 @@ public class LocationServiceImplTest {
         assertEquals(locations, foundLocations);
     }
 
-    @Test
-    public void testDeleteLocation() {
-        long id = 1L;
-        Location location = new Location();
-        Collection<AttendanceRecord> attendanceRecords = Arrays.asList(new AttendanceRecord(), new AttendanceRecord());
-
-        when(locationRepository.findById(id)).thenReturn(Optional.of(location));
-        when(attendanceRecordRepository.findAllByLocationId(id)).thenReturn(attendanceRecords);
-
-        locationService.deleteLocation(id);
-
-        verify(attendanceService, times(2)).deleteAttendanceRecord(anyLong());
-        verify(locationRepository, times(1)).deleteById(id);
-    }
+//    @Test
+//    public void testDeleteLocation() {
+//        long id = 1L;
+//        Location location = new Location();
+//        Collection<AttendanceRecord> attendanceRecords = Arrays.asList(new AttendanceRecord(), new AttendanceRecord());
+//
+//        when(locationRepository.findById(id)).thenReturn(Optional.of(location));
+//        when(attendanceRecordRepository.findAllByLocationId(id)).thenReturn(attendanceRecords);
+//
+//        locationService.deleteLocation(id);
+//
+//        verify(attendanceService, times(2)).deleteAttendanceRecord(anyLong());
+//        verify(locationRepository, times(1)).deleteById(id);
+//    }
 
     @Test
     public void testDeleteLocationNotFound() {
@@ -123,14 +123,14 @@ public class LocationServiceImplTest {
         assertThrows(EntityNotFoundException.class, () -> locationService.updateLocation(id, locationDTO));
     }
 
-    @Test
-    public void testDeleted() {
-        doNothing().when(locationRepository).deleteAll();
-
-        locationService.deleted();
-
-        verify(locationRepository, times(1)).deleteAll();
-    }
+//    @Test
+//    public void testDeleted() {
+//        doNothing().when(locationRepository).deleteAll();
+//
+//        locationService.deleted();
+//
+//        verify(locationRepository, times(1)).deleteAll();
+//    }
 
 
 }

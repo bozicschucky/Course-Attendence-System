@@ -26,7 +26,7 @@ public class AttendanceRecord {
 
 
 
-  @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+  @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
   @JoinColumn(name = "location_id")
   private Location location;
 
