@@ -15,5 +15,11 @@ public  class Staff extends Person{
         super(firstName, lastName, genderType, emailAddress, dateOfBirth, createdRecord, username, password);
         this.role = role;
     }
-    public Staff() {}
+
+    public Staff() {
+    }
+
+    public String getRole() {
+        return role;
+    }
 }
