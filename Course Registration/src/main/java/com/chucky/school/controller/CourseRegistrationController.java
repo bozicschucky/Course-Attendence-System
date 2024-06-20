@@ -1,8 +1,7 @@
 package com.chucky.school.controller;
 
 
-import com.chucky.school.DTO.CourseRegistrationDTO;
-import com.chucky.school.domain.CourseRegistration;
+import com.chucky.school.Adaptor.CourseRegistrationDTO;
 import com.chucky.school.service.CourseRegistrationService;
 import exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,10 +71,10 @@ public class CourseRegistrationController {
 
 
     @GetMapping("student-view/student/course-offerings/{studentId}")
-    public ResponseEntity<List<Object[]>> get(@PathVariable long id) {
-        List<Object[]> courseOfferingAll = courseRegistrationService.getAllFromStudent(id);
+    public ResponseEntity<List<Object[]>> getListOfCourseForSpecificStudent(@PathVariable long studentId) {
+        List<Object[]> courseOfferingAll = courseRegistrationService.getAllFromStudent(studentId);
         if (courseOfferingAll == null) {
-            throw new ResourceNotFoundException("Course Offering not found with id " + id);
+            throw new ResourceNotFoundException("Course Offering not found with id " + studentId);
         }
         return ResponseEntity.ok(courseOfferingAll);
     }

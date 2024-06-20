@@ -1,6 +1,6 @@
 package com.chucky.school.controller;
 
-import com.chucky.school.DTO.CourseOfferingDetailsDTO;
+import com.chucky.school.Adaptor.CourseOfferingDetailsDTO;
 import com.chucky.school.domain.Course;
 import com.chucky.school.domain.CourseOffering;
 import com.chucky.school.service.CourseOfferingService;
