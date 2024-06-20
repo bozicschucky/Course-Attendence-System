@@ -1,9 +1,6 @@
 package com.chucky.school.domain;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +14,7 @@ import java.time.LocalDate;
 @Setter
 public class Student extends Person {
   private long id;
-  @Unique
+  @Column(unique = true)
   private long studentId;
   private String Entry;
   private long alternateId;

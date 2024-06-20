@@ -1,7 +1,6 @@
 package com.chucky.school.domain;
 
 import java.time.LocalDate;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
