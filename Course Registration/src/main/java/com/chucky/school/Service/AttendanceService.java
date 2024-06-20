@@ -8,10 +8,9 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 
 public interface AttendanceService {
-    Collection<SessionDTO> getAllSessions();
-    public AttendanceRecordDTO createAttendanceRecord(long sessionID,long studentId, long locationId);
-    AttendanceRecordDTO getAttendance(long id);
-    Collection<AttendanceRecordDTO> getAllAttendanceRecords();
+    AttendanceRecord createAttendanceRecord(long studentId, long locationId);
+    AttendanceRecord updateAttendanceRecord(long id, AttendanceRecord attendanceRecord);
+    AttendanceRecordDTO getAttendanceRecord(long id);
     void deleteAttendanceRecord(long id);
-    AttendanceRecordDTO updateAttendanceRecord(long id, long studentId, long locationId);
+
 }

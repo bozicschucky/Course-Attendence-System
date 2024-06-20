@@ -7,26 +7,8 @@
     <list default="true" id="3f93e813-4344-4ab1-a2e1-f122e507b6c9" name="Changes" comment="">
       <change afterPath="$PROJECT_DIR$/../.idea/dataSources.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Course Registration/src/main/java/com/chucky/school/Service/AttendanceService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Course Registration/src/main/java/com/chucky/school/Service/AttendanceServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Course Registration/src/main/java/com/chucky/school/Service/LocationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Course Registration/src/main/java/com/chucky/school/Service/LocationServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Course Registration/src/main/java/com/chucky/school/controller/AttendanceController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Course Registration/src/main/java/com/chucky/school/controller/LocationController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Course Registration/src/main/java/com/chucky/school/repository/AttendanceRecordRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Course Registration/src/main/java/com/chucky/school/repository/LocationTypeRepository.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Course Registration/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Course Registration/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Course Registration/src/main/java/com/chucky/school/SchoolApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Course Registration/src/main/java/com/chucky/school/SchoolApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Course Registration/src/main/java/com/chucky/school/domain/CreatedRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Course Registration/src/main/java/com/chucky/school/domain/CreatedRecord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Course Registration/src/main/java/com/chucky/school/domain/FacultyHobby.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Course Registration/src/main/java/com/chucky/school/domain/FacultyHobby.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Course Registration/src/main/java/com/chucky/school/domain/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Course Registration/src/main/java/com/chucky/school/domain/Location.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Course Registration/src/main/java/com/chucky/school/domain/LocationType.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Course Registration/src/main/java/com/chucky/school/domain/LocationType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Course Registration/src/main/java/com/chucky/school/repository/LocationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Course Registration/src/main/java/com/chucky/school/repository/LocationRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Course Registration/src/main/java/com/chucky/school/service/TestService.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +71,7 @@
       <option name="presentableId" value="Default" />
       <updated>1718293438123</updated>
       <workItem from="1718293439362" duration="13471000" />
-      <workItem from="1718483612292" duration="598000" />
+      <workItem from="1718483612292" duration="3630000" />
     </task>
     <servers />
   </component>

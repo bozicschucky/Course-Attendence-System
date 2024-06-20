@@ -17,4 +17,5 @@ public class AttendanceRecordDTO {
     private String lastName;
     private LocationDTO locationDTO;
 
+
 }

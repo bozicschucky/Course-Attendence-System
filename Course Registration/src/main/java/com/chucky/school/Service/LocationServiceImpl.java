@@ -26,7 +26,7 @@ public class LocationServiceImpl implements LocationService {
     private LocationTypeRepository locationTypeRepository;
 
     @Autowired
-    private AttendanceService attendanceService;
+    private AttendanceServiceImplm attendanceService;
 
     @Autowired
     private AttendanceRecordRepository attendanceRecordRepository;

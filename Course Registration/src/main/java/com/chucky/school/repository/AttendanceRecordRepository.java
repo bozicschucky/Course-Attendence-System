@@ -15,6 +15,7 @@ import java.util.Optional;
 @Repository
 public interface AttendanceRecordRepository extends JpaRepository<AttendanceRecord, Long> {
 
+    Optional<AttendanceRecord> findById(long id);
     void findByScanDateTime(LocalDateTime scanDateTime);
     Collection<AttendanceRecord> findAllByLocationId(long locationId);
 }

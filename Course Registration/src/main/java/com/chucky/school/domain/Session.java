@@ -26,20 +26,7 @@ public class Session {
 
     private LocalDate sessionDate;
     private String sessionTitle;
-    private LocalTime startTime;
-    private LocalTime endTime;
-
-    @OneToMany( cascade = CascadeType.ALL)
-    private List<AttendanceRecord> attendanceRecords = new ArrayList<>();
+    private sessionTime sessionTime;
 
 
-    public void addAttendanceRecord(AttendanceRecord attendanceRecord) {
-        attendanceRecords.add(attendanceRecord);
-
-    }
-
-
-    public void removeAttendanceRecord(AttendanceRecord attendanceRecord) {
-        attendanceRecords.remove(attendanceRecord);
-    }
 }

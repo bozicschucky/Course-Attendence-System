@@ -6,6 +6,8 @@ import com.chucky.school.DTO.SessionDTO;
 import com.chucky.school.domain.AttendanceRecord;
 import com.chucky.school.domain.Student;
 import com.chucky.school.service.AttendanceService;
+import com.chucky.school.service.AttendanceServiceImplm;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -14,20 +16,21 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/attendances")
+@RequestMapping("/student-view/attendance-record")
 public class AttendanceController {
 
     @Autowired
-    private AttendanceService attendanceService;
+    private AttendanceServiceImplm attendanceServiceImplm;
 
-    @PostMapping("/new")
-    public ResponseEntity<?> createAttendance(@RequestParam long sessionId,
+    @PostMapping("/create")
+    public ResponseEntity<?> createAttendance(
                                               @RequestParam long studentId,
                                               @RequestParam long locationId) {
-        AttendanceRecordDTO attendanceRecordDTO = attendanceService.createAttendanceRecord(sessionId, studentId, locationId);
-        return ResponseEntity.ok(attendanceRecordDTO);
+        AttendanceRecord attendanceRecord = attendanceServiceImplm.createAttendanceRecord(studentId, locationId);
+        return ResponseEntity.ok(attendanceRecord);
     }
 
 
@@ -35,35 +38,31 @@ public class AttendanceController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getAttendance(@PathVariable Long id){
-        AttendanceRecordDTO attendanceRecord = attendanceService.getAttendance(id);
+        AttendanceRecordDTO attendanceRecord = attendanceServiceImplm.getAttendanceRecord(id);
         return ResponseEntity.ok(attendanceRecord);
     }
 
-    @GetMapping("/records")
+    @GetMapping
     public ResponseEntity<?> getAllAttendance(){
-        Collection<AttendanceRecordDTO> attendanceRecords = attendanceService.getAllAttendanceRecords();
-        return ResponseEntity.ok(attendanceRecords);
+        Collection<AttendanceRecordDTO> attendanceRecords = attendanceServiceImplm.getAttendanceRecords();
+//        Collection<AttendanceRecordDTO> attendanceRecords =
+
+        return ResponseEntity.ok().body(Map.of("attendanceRecords",attendanceRecords));
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteAttendance(@PathVariable Long id){
-        attendanceService.deleteAttendanceRecord(id);
+        attendanceServiceImplm.deleteAttendanceRecord(id);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateAttendance(@PathVariable long id,
-    @RequestParam Long studentId,
-    @RequestParam Long locationId){
-        AttendanceRecordDTO attendanceRecord1 = attendanceService.updateAttendanceRecord(
-                id,studentId,locationId);
+    @RequestBody AttendanceRecord attendanceRecord){
+        AttendanceRecord attendanceRecord1 = attendanceServiceImplm.updateAttendanceRecord(id, attendanceRecord);
         return ResponseEntity.ok(attendanceRecord1);
     }
 
 
-    @GetMapping("/sessions")
-    public ResponseEntity<?> getAllSessions(){
-        Collection<SessionDTO> sessionDTOS = attendanceService.getAllSessions();
-        return ResponseEntity.ok(sessionDTOS);
-    }
+
 }
