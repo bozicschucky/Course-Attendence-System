@@ -47,7 +47,7 @@ public class SpringSecurityConfig {
           authorize.requestMatchers("/api/staff/**").permitAll();
           authorize.requestMatchers("/student-view/**").permitAll();
           authorize.requestMatchers("/api/auth/**").permitAll();
-          authorize.requestMatchers("/sys-admin/**").hasAnyAuthority("SYS_ADMIN");
+          authorize.requestMatchers("/sys-admin/**").hasAnyAuthority("ROLE_SYS_ADMIN");
           authorize.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
           authorize.anyRequest().authenticated();
         }).httpBasic(Customizer.withDefaults());
