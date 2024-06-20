@@ -4,7 +4,7 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 
-import com.chucky.school.DTO.CourseOfferingDetailsDTO;
+import com.chucky.school.Adaptor.CourseOfferingDetailsDTO;
 
 import java.util.List;
 
