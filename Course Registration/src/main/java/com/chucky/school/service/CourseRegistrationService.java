@@ -1,11 +1,9 @@
 package com.chucky.school.service;
 
-import com.chucky.school.DTO.CourseRegistrationDTO;
-import com.chucky.school.domain.CourseOffering;
+import com.chucky.school.Adaptor.CourseRegistrationDTO;
 import com.chucky.school.domain.CourseRegistration;
 
 import java.util.List;
-import java.util.Optional;
 
 
 public interface CourseRegistrationService {
