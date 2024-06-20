@@ -70,7 +70,7 @@ public class CourseRegistrationController {
     }
 
 
-    @GetMapping("student-view/student/course-offerings/{studentId}")
+    @GetMapping("/student-view/student/course-offerings/{studentId}")
     public ResponseEntity<List<Object[]>> getListOfCourseForSpecificStudent(@PathVariable long studentId) {
         List<Object[]> courseOfferingAll = courseRegistrationService.getAllFromStudent(studentId);
         if (courseOfferingAll == null) {
