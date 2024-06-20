@@ -2,16 +2,7 @@ package com.chucky.school.domain;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.PrimaryKeyJoinColumn;
-import jakarta.persistence.SecondaryTable;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,6 +21,7 @@ public abstract class Person {
   private long id;
   private String firstName;
   private String lastName;
+  @Enumerated(EnumType.STRING)
   private GenderType genderType;
   private String emailAddress;
   private LocalDate dateOfBirth;

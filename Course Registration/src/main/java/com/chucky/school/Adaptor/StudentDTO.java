@@ -12,7 +12,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class StudentDTO extends Person  {
-
     private long id;
     @Unique
     private long studentId;
@@ -30,5 +29,4 @@ public class StudentDTO extends Person  {
         this.facultyAdvisor = facultyAdvisor;
     }
     public StudentDTO() {}
-
 }
