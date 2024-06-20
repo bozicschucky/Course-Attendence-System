@@ -1,6 +1,6 @@
 package com.chucky.school.service;
 
-import com.chucky.school.DTO.CourseRegistrationDTO;
+import com.chucky.school.Adaptor.CourseRegistrationDTO;
 import com.chucky.school.domain.CourseOffering;
 import com.chucky.school.domain.CourseRegistration;
 import com.chucky.school.domain.Student;
@@ -79,7 +79,7 @@ public class CourseRegistrationServiceImpl implements CourseRegistrationService 
     }
 @Override
 public List<Object[]> getAllFromCourseOffering(long courseOfferingId) {
-        return courseRegistrationRepository.getAllFromCourseOffering(courseOfferingId);
+        return courseRegistrationRepository.getAllFromCourseOfferingAndFaculity(courseOfferingId);
     }
 
     @Override

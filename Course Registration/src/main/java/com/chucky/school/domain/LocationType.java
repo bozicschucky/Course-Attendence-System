@@ -4,16 +4,14 @@ import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode
 public class LocationType {
   @Id
   @GeneratedValue
@@ -21,4 +19,9 @@ public class LocationType {
   private String type;
   @Embedded
   private AuditData createdRecord;
+
+  public LocationType(String type, AuditData createdRecord) {
+    this.type = type;
+    this.createdRecord = createdRecord;
+  }
 }

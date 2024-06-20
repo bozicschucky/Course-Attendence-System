@@ -1,4 +1,4 @@
-package com.chucky.school.DTO;
+package com.chucky.school.Adaptor;
 
 
 import lombok.Builder;

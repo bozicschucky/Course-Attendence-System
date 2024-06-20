@@ -1,6 +1,6 @@
 package com.chucky.school.controller;
 
-import com.chucky.school.DTO.CourseRegistrationDTO;
+import com.chucky.school.Adaptor.CourseRegistrationDTO;
 import com.chucky.school.service.CourseRegistrationService;
 import exception.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;

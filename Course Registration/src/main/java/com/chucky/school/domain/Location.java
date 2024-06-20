@@ -1,20 +1,14 @@
 package com.chucky.school.domain;
 
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
 public class Location {
   @Id
   @GeneratedValue
@@ -24,6 +18,15 @@ public class Location {
   private String name;
   @Embedded
   private AuditData createdRecord;
-  @ManyToOne
+  @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   private LocationType locationType;
+
+  public Location(long typeId, long capacity, String name,
+                  AuditData createdRecord, LocationType locationType) {
+    this.typeId = typeId;
+    this.capacity = capacity;
+    this.name = name;
+    this.createdRecord = createdRecord;
+    this.locationType = locationType;
+  }
 }
