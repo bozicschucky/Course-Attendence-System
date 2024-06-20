@@ -60,11 +60,11 @@ public class CourseRegistrationController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("admin-view/courseList/course-offerings/{id}")
-    public ResponseEntity<List<Object[]>> getCourseOfferingByIdForAdmin(@PathVariable long id) {
-        List<Object[]> courseOfferingAll = courseRegistrationService.getAllFromCourseOffering(id);
+    @GetMapping("/admin-view/courseofferings/{offeringId}")
+    public ResponseEntity<List<Object[]>> getCourseOfferingByIdForAdmin(@PathVariable long offeringId) {
+        List<Object[]> courseOfferingAll = courseRegistrationService.getAllFromCourseOffering(offeringId);
         if (courseOfferingAll == null) {
-            throw new ResourceNotFoundException("Course Offering not found with id " + id);
+            throw new ResourceNotFoundException("Course Offering not found with id " + offeringId);
         }
         return ResponseEntity.ok(courseOfferingAll);
     }

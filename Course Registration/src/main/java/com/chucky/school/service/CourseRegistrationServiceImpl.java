@@ -79,7 +79,7 @@ public class CourseRegistrationServiceImpl implements CourseRegistrationService 
     }
 @Override
 public List<Object[]> getAllFromCourseOffering(long courseOfferingId) {
-        return courseRegistrationRepository.getAllFromCourseOffering(courseOfferingId);
+        return courseRegistrationRepository.getAllFromCourseOfferingAndFaculity(courseOfferingId);
     }
 
     @Override
