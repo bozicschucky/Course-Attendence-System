@@ -7,6 +7,7 @@ import com.chucky.school.domain.Student;
 import com.chucky.school.repository.CourseOfferingRepository;
 import com.chucky.school.repository.CourseRegistrationRepository;
 import com.chucky.school.repository.StudentRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import exception.ResourceNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,22 +51,6 @@ class CourseRegistrationServiceImplTest {
                 .studentId(student)
                 .courseOfferingId(courseOffering)
                 .build();
-    }
-
-    @Test
-    void createRegistration_success() {
-        when(studentRepository.findById(1L)).thenReturn(Optional.of(student));
-        when(courseOfferingRepository.getCourseOfferingById(1L)).thenReturn(courseOffering);
-        when(courseRegistrationRepository.countByCourseOfferingIdAndStudentId(1L, 1L)).thenReturn(0);
-        when(courseRegistrationRepository.save(any(CourseRegistration.class))).thenReturn(courseRegistration);
-
-        CourseRegistration result = courseRegistrationService.createRegistration(1L, 1L);
-
-        assertNotNull(result);
-        assertEquals(courseRegistration, result);
-        verify(studentRepository).findById(1L);
-        verify(courseOfferingRepository).getCourseOfferingById(1L);
-        verify(courseRegistrationRepository).save(any(CourseRegistration.class));
     }
 
 

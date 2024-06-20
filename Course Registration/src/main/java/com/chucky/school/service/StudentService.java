@@ -1,9 +1,12 @@
 package com.chucky.school.service;
 
 import com.chucky.school.Adaptor.StudentDTO;
-import com.chucky.school.domain.Faculty;
+import com.chucky.school.domain.Message;
+import com.chucky.school.domain.Sender;
 import com.chucky.school.domain.Student;
 import com.chucky.school.repository.StudentRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +16,23 @@ import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
-
+    ObjectMapper objectMapper = new ObjectMapper();
+    @Autowired
+    Sender emailSender;
     @Autowired
     private StudentRepository studentRepository;
+
+    public void sendReminderToStudent() {
+        List<Student> students = studentRepository.findAll();
+        for (Student student : students) {
+            try {
+                String stringMessage = objectMapper.writeValueAsString(new Message(student.getFirstName(), "This Is Reminder For You to get Registration", student.getEmailAddress(), "Course Registration"));
+                emailSender.send("StudentsMessageTopic", stringMessage);
+            } catch (JsonProcessingException ignored) {
+            }
+
+        }
+    }
 
     public List<StudentDTO> getAllStudents() {
         return studentRepository.findAll().stream().map(this::convertToDTO).collect(Collectors.toList());
@@ -104,6 +121,7 @@ public class StudentService {
 
         return student;
     }
+
     public Optional<StudentDTO> getStudentBystudentID(Long studentID) {
         return studentRepository.findBystudentID(studentID).map(this::convertToDTO);
     }

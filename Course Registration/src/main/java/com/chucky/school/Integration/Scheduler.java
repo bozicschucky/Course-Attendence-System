@@ -1,5 +1,10 @@
 package com.chucky.school.Integration;
 
+import com.chucky.school.repository.StudentRepository;
+import com.chucky.school.service.StudentService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,6 +22,8 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 @EnableScheduling
 public class Scheduler {
+    @Autowired
+    StudentService studentService;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     LocalDateTime registrationEnd = LocalDateTime.of(2024,06,20,15, 45,00);
     int minute=0;
@@ -33,7 +40,8 @@ public class Scheduler {
         }
     }
 
-    private void printMessage() {
-        System.out.println(minute+" minutes before the given date and time!");
+    private void printMessage(){
+
+        studentService.sendReminderToStudent();
     }
 }

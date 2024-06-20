@@ -3,6 +3,7 @@ package com.chucky.school.controller;
 
 import com.chucky.school.Adaptor.CourseRegistrationDTO;
 import com.chucky.school.service.CourseRegistrationService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class CourseRegistrationController {
     @PostMapping("/sys-admin/registrations")
     public ResponseEntity<CourseRegistrationDTO> createRegistration(
             @RequestParam long courseOfferingId,
-            @RequestParam long studentId) {
+            @RequestParam long studentId) throws JsonProcessingException {
           courseRegistrationService.createRegistration(courseOfferingId, studentId);
         return ResponseEntity.ok( CourseRegistrationDTO.builder().studentId(studentId)
                 .courseOfferingId(courseOfferingId)
