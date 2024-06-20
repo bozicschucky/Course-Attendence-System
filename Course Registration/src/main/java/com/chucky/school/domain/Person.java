@@ -21,7 +21,7 @@ public abstract class Person {
   private long id;
   private String firstName;
   private String lastName;
-  @Enumerated(EnumType.STRING)
+  @Enumerated
   private GenderType genderType;
   private String emailAddress;
   private LocalDate dateOfBirth;
