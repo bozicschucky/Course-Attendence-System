@@ -69,10 +69,11 @@ class StudentServiceTest {
                 "2023-10-03", 101L, 201L, faculty) ;
 
         StudentDTO studentDTO = new StudentDTO();
-        studentDTO.setStudentId(1L);
+        studentDTO.setStudentId(5L);
         studentDTO.setEntry("2024-01-01");
         studentDTO.setAlternateId(101L);
         studentDTO.setApplicantId(201L);
+
 
         when(studentRepository.save(any(Student.class))).thenReturn(student);
 

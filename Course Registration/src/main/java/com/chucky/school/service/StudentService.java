@@ -48,8 +48,6 @@ public class StudentService {
         student.setStudentId(studentDTO.getStudentId());
         student.setAlternateId(studentDTO.getAlternateId());
         student.setApplicantId(studentDTO.getApplicantId());
-
-
         Student updatedStudent = studentRepository.save(student);
         return convertToDTO(updatedStudent);
     }
@@ -85,6 +83,7 @@ public class StudentService {
         Student student = new Student();
         student.setId(studentDTO.getId());
         student.setStudentId(studentDTO.getStudentId());
+
         student.setEntry(studentDTO.getEntry());
         student.setAlternateId(studentDTO.getAlternateId());
         student.setApplicantId(studentDTO.getApplicantId());
