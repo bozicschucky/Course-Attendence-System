@@ -1,5 +1,6 @@
 package com.chucky.school.service;
 
+import com.chucky.school.DTO.CourseRegistrationDTO;
 import com.chucky.school.domain.CourseOffering;
 import com.chucky.school.domain.CourseRegistration;
 import com.chucky.school.domain.Student;
@@ -26,7 +27,7 @@ public class CourseRegistrationServiceImpl implements CourseRegistrationService 
 
     @Override
     public CourseRegistration createRegistration(long courseOfferingId, long studentId) {
-        Optional<Student> student = studentRepository.findBystudentID(studentId);
+        Optional<Student> student = studentRepository.findById(studentId);
         if (student.isEmpty()) {
             throw new ResourceNotFoundException("Unable to find student with id " + studentId);
         }
@@ -38,43 +39,51 @@ public class CourseRegistrationServiceImpl implements CourseRegistrationService 
             throw new ResourceNotFoundException.DuplicateRegistrationException("Course registration already exists");
         }
         CourseRegistration courseRegistration = CourseRegistration.builder()
-                .courseOfferingId(courseOfferingId)
-                .studentId(studentId).build();
-        CourseRegistration courseRegistrationResponse = courseRegistrationRepository.save(courseRegistration);
+                .courseOfferingId(courseOffering)
+                .studentId(student.get()).build();
 
-        return courseRegistrationResponse;
+        return courseRegistrationRepository.save(courseRegistration);
 
     }
 
     @Override
-    public Optional<CourseRegistration> findRegistrationById(long registrationId) {
-        return courseRegistrationRepository.findById(registrationId);
+    public CourseRegistrationDTO findRegistrationById(long registrationId) {
+        return courseRegistrationRepository.findCourseRegistrationsByCourseOfferingId(registrationId);
     }
 
     @Override
     public CourseRegistration updateRegistration(long registrationId,long courseOfferingId, long studentId,char grade) {
-       studentRepository.findBystudentID(studentId).
+       Student student=studentRepository.findById(studentId).
         orElseThrow(() -> new ResourceNotFoundException("Unable to find the Student with provided studentId"+studentId));
 
-   courseOfferingRepository.findById(courseOfferingId)
+  CourseOffering courseOffering= courseOfferingRepository.findById(courseOfferingId)
                 .orElseThrow(() -> new ResourceNotFoundException("Unable to find the CourseOffering with provided courseOfferingId"+courseOfferingId));
 
         CourseRegistration findcourseRegistration= courseRegistrationRepository.findById(registrationId).
            orElseThrow(() -> new ResourceNotFoundException("Unable to find the CourseRegistration with provided registrationId"+ registrationId));
         findcourseRegistration.setGrade(grade);
-        findcourseRegistration.setStudentId(studentId);
-        findcourseRegistration.setCourseOfferingId(courseOfferingId);
+        findcourseRegistration.setStudentId(student);
+        findcourseRegistration.setCourseOfferingId(courseOffering);
         return courseRegistrationRepository.save(findcourseRegistration);
     }
 
     @Override
-    public List<CourseRegistration> findAllRegistrations() {
-        return courseRegistrationRepository.findAll();
+    public List<CourseRegistrationDTO> findAllRegistrations() {
+        return courseRegistrationRepository.findAllCourseRegistrations();
     }
 
     @Override
     public void deleteRegistration(long registrationId) {
         courseRegistrationRepository.deleteById(registrationId);
 
+    }
+@Override
+public List<Object[]> getAllFromCourseOffering(long courseOfferingId) {
+        return courseRegistrationRepository.getAllFromCourseOffering(courseOfferingId);
+    }
+
+    @Override
+    public List<Object[]> getAllFromStudent(long studentId) {
+        return courseRegistrationRepository.getAllCourseByStudentId(studentId);
     }
 }
