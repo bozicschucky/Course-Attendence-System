@@ -26,7 +26,12 @@ public class Session {
 
     private LocalDate sessionDate;
     private String sessionTitle;
+
+    @Enumerated(EnumType.STRING)
     private sessionTime sessionTime;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private CourseOffering courseOffering;
 
 
 }

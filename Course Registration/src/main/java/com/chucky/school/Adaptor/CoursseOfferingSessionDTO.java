@@ -1,18 +1,16 @@
 package com.chucky.school.Adaptor;
 
-
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
 
 @Data
-@Builder
 @NoArgsConstructor
-public class CourseOfferingDetailsDTO {
+public class CoursseOfferingSessionDTO {
     private long id;
     private long courseId;
     private long facultyId;
@@ -21,10 +19,11 @@ public class CourseOfferingDetailsDTO {
     private String room;
     private LocalDate startDate;
     private LocalDate endDate;
+    private Collection<SessionDTO> session = new ArrayList<SessionDTO>();
 
 
 
-    public CourseOfferingDetailsDTO(long id, long courseId, long facultyId, long capacity, String courseOfferingType, String room, LocalDate startDate, LocalDate endDate) {
+    public CoursseOfferingSessionDTO(long id, long courseId, long facultyId, long capacity, String courseOfferingType, String room, LocalDate startDate, LocalDate endDate) {
         this.id = id;
         this.courseId = courseId;
         this.facultyId = facultyId;

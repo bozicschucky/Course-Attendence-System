@@ -1,20 +1,13 @@
 package com.chucky.school.controller;
 
 
-import com.chucky.school.DTO.AttendanceRecordDTO;
-import com.chucky.school.DTO.SessionDTO;
+import com.chucky.school.Adaptor.AttendanceRecordDTO;
 import com.chucky.school.domain.AttendanceRecord;
-import com.chucky.school.domain.Student;
-import com.chucky.school.service.AttendanceService;
 import com.chucky.school.service.AttendanceServiceImplm;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
 

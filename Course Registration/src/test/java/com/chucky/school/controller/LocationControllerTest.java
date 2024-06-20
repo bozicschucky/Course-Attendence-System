@@ -94,12 +94,5 @@ public class LocationControllerTest {
     }
 
 
-    @Test
-    public void testDeleteAllLocations() {
-        doNothing().when(locationService).deleted();
 
-        locationController.deleteall();
-
-        verify(locationService, times(1)).deleted();
-    }
 }

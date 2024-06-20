@@ -1,7 +1,6 @@
 package com.chucky.school.service;
 
-import com.chucky.school.DTO.AttendanceRecordDTO;
-import com.chucky.school.DTO.LocationDTO;
+import com.chucky.school.Adaptor.AttendanceRecordDTO;
 import com.chucky.school.domain.AttendanceRecord;
 import com.chucky.school.domain.Location;
 import com.chucky.school.domain.LocationType;

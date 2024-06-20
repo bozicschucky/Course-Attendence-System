@@ -50,6 +50,8 @@ public class LocationController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteLocation(@PathVariable long id){
+
+
         locationService.deleteLocation(id);
         return ResponseEntity.noContent().build();
     }
@@ -61,8 +63,4 @@ public class LocationController {
         return ResponseEntity.ok(locationDTP);
     }
 
-    @GetMapping("/deleteall")
-    public void deleteall(){
-        locationService.deleted();
-    }
 }

@@ -71,7 +71,8 @@ public class LocationServiceImpl implements LocationService {
         for (AttendanceRecord attendanceRecord : attendanceRecords){
             attendanceService.deleteAttendanceRecord(attendanceRecord.getId());
         }
-            LocationRepository.deleteById(id);
+        //attendanceRecordRepository.deleteByStudentId(id);  // Delete related attendance records first
+            LocationRepository.delete(location.get());
     }
 
 
